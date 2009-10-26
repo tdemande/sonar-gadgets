@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Licensed to Marvelution under one or more contributor license 
+ ~ agreements.  See the NOTICE file distributed with this work 
+ ~ for additional information regarding copyright ownership.
+ ~ Marvelution licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~  http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied. See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.marvelution</groupId>
+		<artifactId>marvelution</artifactId>
+		<version>2-SNAPSHOT</version>
+	</parent>
+	<groupId>com.marvelution.gadgets</groupId>
+	<artifactId>sonar-gadgets</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<name>Sonar Gadgets</name>
+	<description>Sonar Gadgets for Atlassian products like Jira and Bamboo</description>
+	<inceptionYear>2009</inceptionYear>
+	<organization>
+		<name>Marvelution</name>
+		<url>http://www.marvelution.com/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<scm>
+		<connection>scm:svn:http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</connection>
+		<developerConnection>scm:svn:http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</developerConnection>
+		<url>http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</url>
+	</scm>
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.marvelution.com/browse/MARVSONARGADGETS</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://builds.marvelution.com/browse/MARVSONARGADGETS</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>ci@lists.marvelution.com</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	
+	<properties>
+		<project.jdk.revision>1.5</project.jdk.revision>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>markrekveld</id>
+			<name>Mark Rekveld</name>
+			<url>http://www.marvelution.com</url>
+			<organization>Marvelution</organization>
+			<email>markrekveld@marvelution.com</email>
+			<organizationUrl>http://www.marvelution.com</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Marvelution Member</role>
+			</roles>
+		</developer>
+	</developers>
+</project>
