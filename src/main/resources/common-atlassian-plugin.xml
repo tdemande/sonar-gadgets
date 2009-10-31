@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Licensed to Marvelution under one or more contributor license 
+ ~ agreements.  See the NOTICE file distributed with this work 
+ ~ for additional information regarding copyright ownership.
+ ~ Marvelution licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~  http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied. See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+ -->
+<atlassian-plugin name="${pom.name}" key="${atlassian.plugin.key}" system="false" pluginsVersion="2">
+
+	<!-- I 1 8 N   R E S O U R C E S -->
+	<resource type="i18n" name="i18n-sonar-gadgets" location="i18n.sonar-gadgets" />
+	<resource type="i18n" name="i18n-sonar-errors" location="i18n.sonar-errors" />
+	<resource type="i18n" name="i18n-sonar-views" location="i18n.sonar-views" />
+
+	<!-- W E B   R E S O U R C E S -->
+	<web-resource key="sonar-common" name="Common Sonar Web Resources">
+		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
+		<resource type="download" name="sonar-i18n-min.js" location="scripts/sonar-i18n-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-utils-min.js" location="scripts/sonar-utils-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-accessor-min.js" location="scripts/sonar-accessor-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-views-min.js" location="scripts/sonar-views-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
+		<resource type="download" name="sonar-views-min.css" location="styles/sonar-views-min.css" />
+	</web-resource>
+
+	<web-resource key="gadget-common" name="Common Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:sonar-common</dependency>
+		<resource type="download" name="gadget-config-min.js" location="scripts/gadget-config-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="gadget-fields-min.js" location="scripts/gadget-fields-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="gadget-sonar-accessor-min.js" location="scripts/gadget-sonar-accessor-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+
+	<!-- R E S T   R E S O U R C E S -->
+	<rest key="gadgetRestPoints" path="/sonar" version="1.0" system="false"
+		description="Provides REST endpoints used to display Sonar gadget contents." />
+
+	<!-- G A D G E T S -->
+	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml" />
+	<gadget key="sonar-complexity-gadget" name="Sonar Complexity" location="gadgets/sonar-complexity-gadget.xml" />
+	<gadget key="sonar-coverage-gadget" name="Sonar Coverage" location="gadgets/sonar-coverage-gadget.xml" />
+	<gadget key="sonar-loc-gadget" name="Sonar Lines of Code" location="gadgets/sonar-loc-gadget.xml" />
+	<gadget key="sonar-treemap-gadget" name="Sonar Treemap" location="gadgets/sonar-treemap-gadget.xml" />
+	<gadget key="sonar-violations-gadget" name="Sonar Violations" location="gadgets/sonar-violations-gadget.xml" />
+
+	<!-- I M A G E   R E S O U R C E S -->
+	
+
+	<!-- I M P O R T E D   C O M P O N E N T S -->
+	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
+
+</atlassian-plugin>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ ~ Licensed to Marvelution under one or more contributor license 
+ ~ agreements.  See the NOTICE file distributed with this work 
+ ~ for additional information regarding copyright ownership.
+ ~ Marvelution licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~  http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied. See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+ -->
+<Module>
+	<ModulePrefs title="__MSG_sonar.gadget.loc.title__" directory_title="__MSG_sonar.gadget.loc.title__"
+				 description="__MSG_sonar.gadget.loc.description__"
+				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
+				 author_location="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100">
+		<Optional feature="gadget-directory">
+			<Param name="categories">
+				JIRA
+				Sonar
+				Other
+			</Param>
+		</Optional>
+        <Require feature="setprefs"/>
+        <Require feature="settitle"/>
+        <Require feature="dynamic-height"/>
+        <Require feature="views" />
+        <Optional feature="atlassian.util" />
+        <Require feature="oauthpopup"/>
+		#oauth
+		#supportedLocales("sonar.gadget,sonar.error")
+	</ModulePrefs>
+	<UserPref name="sonarServer" datatype="hidden" default_value="" />
+	<UserPref name="sonarProject" datatype="hidden" default_value="" />
+	<UserPref name="isConfigured" datatype="hidden" default_value="true" />
+	<Content type="html">
+		<![CDATA[
+		#requireResource("${atlassian.plugin.key}:gadget-common")
+        #includeResources()
+		<script type="text/javascript">
+		gadgets.window.setTitle("__MSG_sonar.gadget.loc.title__");
+		(function () {
+			AJS.Gadget({
+				baseUrl: "__ATLASSIAN_BASE_URL__",
+				config: {
+					descriptor: function (args) {
+						var gadget = this;
+						gadgets.window.setTitle("__MSG_sonar.gadget.loc.title__");
+						return  {
+							action : "",
+							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject")
+						};
+					},
+					args: []
+				},
+				view: {
+					enableReload: true,
+					onResizeReload: true,
+					template: function (args) {
+						var gadget = this;
+						gadget.getView().empty();
+						var baseUrl = AJS.$.ajaxSettings.baseUrl;
+						gadget.resize();
+					},
+					args: [{
+						key: "data",
+						ajaxOptions: function () {
+							var gadget = this;
+							return {
+								url: "",
+								data: {
+									view: ""
+								}
+							};
+						}
+					}]
+				}
+			});
+		})();
+		</script>
+		]]>
+	</Content>
+</Module>
