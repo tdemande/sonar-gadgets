@@ -21,9 +21,17 @@ AJS.$.namespace("AJS.sonar.views");
 
 AJS.sonar.views.COVERAGE_VIEW = "coverage";
 
+AJS.sonar.views.LOC_VIEW = "loc";
+
+AJS.sonar.views.COMMENTS_VIEW = "comments";
+
 AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS = {
 		line_coverage: "highlight=line_coverage&amp;metric=uncovered_lines",
-		branch_coverage: "highlight=branch_coverage&amp;metric=uncovered_conditions"
+		branch_coverage: "highlight=branch_coverage&amp;metric=uncovered_conditions",
+		public_documented_api_density: "highlight=public_documented_api_density&amp;metric=public_undocumented_api",
+		public_undocumented_api: "highlight=public_undocumented_api&amp;metric=public_undocumented_api",
+		commented_out_code_lines: "highlight=commented_out_code_lines&amp;metric=commented_out_code_lines",
+		duplicated_lines_density: "highlight=duplicated_lines_density&amp;metric=duplicated_lines"
 };
 
 /**
@@ -67,6 +75,95 @@ AJS.sonar.views.generateCoverageView = function(baseUrl, serverUrl, measureData,
 	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COVERAGE_VIEW, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "test_errors"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "test_errors"), false).appendTo(rightView);
+	rightView.appendTo(view);
+	AJS.sonar.views.addViewFooter(view, serverUrl);
+	return view;
+}
+
+/**
+ * Generate the Sonar LOC view
+ * 
+ * @param baseUrl the base url of the system displaying the view
+ * @param serverUrl the base url of the Sonar server
+ * @param measureData the measure data of a project on Sonar
+ * @param metricsDetails the details of the coverage measures
+ * @return the jQuery wrapped view object
+ */
+AJS.sonar.views.generateLocView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+	AJS.sonar.text.load(baseUrl);
+	var view = AJS.sonar.views.createViewContainer();
+	var leftView = AJS.sonar.views.createColumn(true);
+	leftView.append(AJS.sonar.views.createHeader("sonar.views.loc.lines.of.code"));
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "ncloc"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "ncloc"), true).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "lines"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "lines"), false).appendTo(leftView);
+	leftView.appendTo(view);
+	var rightView = AJS.sonar.views.createColumn(false);
+	rightView.append(AJS.sonar.views.createHeader("sonar.views.loc.classes.header"));
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "classes"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "classes"), true).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "packages"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "packages"), false).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "functions"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "functions"), false).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.LOC_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "accessors"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "accessors"), false).appendTo(rightView);
+	rightView.appendTo(view);
+	AJS.sonar.views.addViewFooter(view, serverUrl);
+	return view;
+}
+
+/**
+ * Generate the Sonar Comments view
+ * 
+ * @param baseUrl the base url of the system displaying the view
+ * @param serverUrl the base url of the Sonar server
+ * @param measureData the measure data of a project on Sonar
+ * @param metricsDetails the details of the coverage measures
+ * @return the jQuery wrapped view object
+ */
+AJS.sonar.views.generateCommentsView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+	AJS.sonar.text.load(baseUrl);
+	var view = AJS.sonar.views.createViewContainer();
+	var leftView = AJS.sonar.views.createColumn(true);
+	leftView.append(AJS.sonar.views.createHeader("sonar.views.comments.comments"));
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "comment_lines_density"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "comment_lines_density"), true).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "comment_lines"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "comment_lines"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "public_documented_api_density"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "public_documented_api_density"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "public_undocumented_api"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "public_undocumented_api"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "commented_out_code_lines"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "commented_out_code_lines"), false).appendTo(leftView);
+	leftView.appendTo(view);
+	var rightView = AJS.sonar.views.createColumn(false);
+	rightView.append(AJS.sonar.views.createHeader("sonar.views.comments.duplications"));
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "duplicated_lines_density"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "duplicated_lines_density"), true).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "duplicated_lines"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "duplicated_lines"), false).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "duplicated_blocks"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "duplicated_blocks"), false).appendTo(rightView);
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.COMMENTS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "duplicated_files"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "duplicated_files"), false).appendTo(rightView);
 	rightView.appendTo(view);
 	AJS.sonar.views.addViewFooter(view, serverUrl);
 	return view;

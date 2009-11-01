@@ -17,11 +17,6 @@
  * under the License.
 */
 
-p, h3 {
-	margin: 0;
-	padding: 0;
-}
-
 a {
 	color: #000;
 }
@@ -35,6 +30,13 @@ a {
 
 .view-container {
 	margin: 10px;
+}
+
+.view-container p, .view-container h3,
+.left-column p, .left-column h3,
+.right-column p, .right-column h3 {
+	margin: 0;
+	padding: 0;
 }
 
 .left-column {

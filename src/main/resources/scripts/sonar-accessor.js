@@ -20,6 +20,11 @@
 AJS.$.namespace("AJS.sonar.accessor");
 
 AJS.sonar.accessor.COVERAGE_METRICS = 'coverage_line_hits_data,tests,test_execution_time,test_errors,skipped_tests,test_failures,test_success_density,coverage,line_coverage,branch_coverage';
+
+AJS.sonar.accessor.LOC_METRICS = 'ncloc,lines,classes,packages,functions,accessors';
+
+AJS.sonar.accessor.COMMENTS_METRICS = 'comment_lines_density,comment_lines,public_documented_api_density,public_undocumented_api,commented_out_code_lines,duplicated_lines_density,duplicated_lines,duplicated_blocks,duplicated_files';
+
 AJS.sonar.accessor.JSON_FORMAT = "json";
 
 /**
@@ -49,6 +54,6 @@ AJS.sonar.accessor.generateServerMetricsApiUrl = function(serverUrl) {
  * @param projectKey the project key of the project to get the coverage data for
  * @return the generated API url
  */
-AJS.sonar.accessor.generateCoverageApiUrl = function(serverUrl, projectKey) {
-	return AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl) + "&metrics=" + AJS.sonar.accessor.COVERAGE_METRICS + "&resource=" + projectKey + "&includetrends=true&includealerts=true";
+AJS.sonar.accessor.generateApiUrl = function(serverUrl, projectKey, metrics) {
+	return AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl) + "&metrics=" + metrics + "&resource=" + projectKey + "&includetrends=true&includealerts=true";
 }

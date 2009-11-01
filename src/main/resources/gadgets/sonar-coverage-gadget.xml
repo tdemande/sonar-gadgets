@@ -21,7 +21,9 @@
 	<ModulePrefs title="__MSG_sonar.gadget.coverage.title__" directory_title="__MSG_sonar.gadget.coverage.title__"
 				 description="__MSG_sonar.gadget.coverage.description__"
 				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
-				 author_location="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100">
+				 author_location="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
+				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-coverage-gadget", "sonar-coverage-screenshot.png")'
+				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-coverage-gadget", "sonar-coverage-thumb.png")'>
 		<Optional feature="gadget-directory">
 			<Param name="categories">
 				JIRA
@@ -91,7 +93,7 @@
 						ajaxOptions: function () {
 							var gadget = this;
 							return {
-								url: AJS.sonar.accessor.generateCoverageApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"))
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.accessor.COVERAGE_METRICS)
 							};
 						}
 					}, {

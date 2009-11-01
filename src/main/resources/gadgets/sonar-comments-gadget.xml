@@ -21,7 +21,9 @@
 	<ModulePrefs title="__MSG_sonar.gadget.comments.title__" directory_title="__MSG_sonar.gadget.comments.title__"
 				 description="__MSG_sonar.gadget.comments.description__"
 				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
-				 author_commentsation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100">
+				 author_commentsation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
+				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-comments-gadget", "sonar-comments-screenshot.png")'
+				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-comments-gadget", "sonar-comments-thumb.png")'>
 		<Optional feature="gadget-directory">
 			<Param name="categories">
 				JIRA
@@ -36,10 +38,11 @@
         <Optional feature="atlassian.util" />
         <Require feature="oauthpopup"/>
 		#oauth
-		#supportedLocales("sonar.gadget,sonar.error")
+		#supportedLocales("gadget.common,sonar.views,sonar.gadget,sonar.error")
 	</ModulePrefs>
 	<UserPref name="sonarServer" datatype="hidden" default_value="" />
 	<UserPref name="sonarProject" datatype="hidden" default_value="" />
+	<UserPref name="refresh" datatype="hidden" default_value="false" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="true" />
 	<Content type="html">
 		<![CDATA[
@@ -68,18 +71,37 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
-						var baseUrl = AJS.$.ajaxSettings.baseUrl;
+						gadget.showLoading();
+						if (!args.measureData[0]) {
+							gadget.getView().append(
+								AJS.sonar.utils.generateErrorMessageBox([
+									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
+								])
+							);
+						} else {
+							var measureData = args.measureData[0];
+							gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.comments.project.title__", measureData.name));
+							gadget.getView().append(
+								AJS.sonar.views.generateCommentsView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
+							);
+						}
+						gadget.hideLoading();
 						gadget.resize();
 					},
 					args: [{
-						key: "data",
+						key: "measureData",
 						ajaxOptions: function () {
 							var gadget = this;
 							return {
-								url: "",
-								data: {
-									view: ""
-								}
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.accessor.COMMENTS_METRICS)
+							};
+						}
+					}, {
+						key: "metricsDetails",
+						ajaxOptions: function () {
+							var gadget = this;
+							return {
+								url: AJS.sonar.accessor.generateServerMetricsApiUrl(gadget.getPref("sonarServer"))
 							};
 						}
 					}]
