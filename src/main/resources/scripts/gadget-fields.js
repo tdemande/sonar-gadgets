@@ -19,6 +19,18 @@
 
 AJS.$.namespace("AJS.gadget.sonar.fields");
 
+AJS.gadget.sonar.fields.waitImage = function () {
+	var imageSrc = "";
+	if (WAIT_IMAGE_SRC !== undefined) {
+		imageSrc = WAIT_IMAGE_SRC;
+	}
+	return AJS.$("<img/>").attr({
+		id: "waitingImage",
+		border: 0,
+		src: imageSrc
+	}).addClass("waiting-image");
+}
+
 /**
  * Get the Gadgets' isConfigured field
  *
@@ -77,7 +89,7 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 			} else {
 				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, gadget.getPref(serverPrefField), projectList, gadget.getPref(projectPrefField));
 			}
-			parentDiv.append(projectList).append(
+			parentDiv.append(AJS.gadget.sonar.fields.waitImage()).append(projectList).append(
 				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.project.description"))
 			);
 		}

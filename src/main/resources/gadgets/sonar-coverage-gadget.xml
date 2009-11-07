@@ -50,6 +50,8 @@
 		#requireResource("${atlassian.plugin.key}:gadget-common")
         #includeResources()
 		<script type="text/javascript">
+		gadgets.window.setTitle("__MSG_sonar.gadget.coverage.title__");
+		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
 		(function () {
 			AJS.Gadget({
 				baseUrl: "__ATLASSIAN_BASE_URL__",

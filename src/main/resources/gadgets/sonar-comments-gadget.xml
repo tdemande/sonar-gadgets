@@ -43,13 +43,14 @@
 	<UserPref name="sonarServer" datatype="hidden" default_value="" />
 	<UserPref name="sonarProject" datatype="hidden" default_value="" />
 	<UserPref name="refresh" datatype="hidden" default_value="false" />
-	<UserPref name="isConfigured" datatype="hidden" default_value="true" />
+	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
 	<Content type="html">
 		<![CDATA[
 		#requireResource("${atlassian.plugin.key}:gadget-common")
         #includeResources()
 		<script type="text/javascript">
 		gadgets.window.setTitle("__MSG_sonar.gadget.comments.title__");
+		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
 		(function () {
 			AJS.Gadget({
 				baseUrl: "__ATLASSIAN_BASE_URL__",

@@ -28,8 +28,10 @@ AJS.$.namespace("AJS.gadget.sonar.accessor");
  * @param selectedKey the selected Project Key
  */
 AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget, serverUrl, projectSelector, selectedKey) {
+	var waitImage = AJS.$("#waitingImage");
 	projectSelector.empty();
 	projectSelector.css("display", "none");
+	waitImage.css("display", "block");
 	gadget.resize();
 	AJS.$.ajax({
 		url: AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl),
@@ -44,7 +46,8 @@ AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget,
 					}).text(this.name)
 				);
 			});
-			projectSelector.css("display", "inline");
+			waitImage.css("display", "none");
+			projectSelector.css("display", "block");
 			gadget.resize();
 		}
 	});

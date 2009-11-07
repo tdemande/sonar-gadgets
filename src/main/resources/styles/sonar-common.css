@@ -33,3 +33,8 @@ a:hover {
 .styleless-list {
 	list-style-type: none;
 }
+
+img.waiting-image {
+    display: none;
+    margin: 10px auto;
+}

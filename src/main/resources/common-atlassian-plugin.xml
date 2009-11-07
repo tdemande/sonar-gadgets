@@ -71,6 +71,7 @@
 	<gadget key="sonar-violations-gadget" name="Sonar Violations" location="gadgets/sonar-violations-gadget.xml" />
 
 	<!-- I M A G E   R E S O U R C E S -->
+	<resource type="download" name="images/" location="images/" />
 	<resource type="download" name="sonar-coverage-screenshot.png" location="images/gadgets/sonar-coverage-screenshot.png"/>
 	<resource type="download" name="sonar-coverage-thumb.png" location="images/gadgets/sonar-coverage-thumb.png"/>
 	<resource type="download" name="sonar-comments-screenshot.png" location="images/gadgets/sonar-comments-screenshot.png"/>
