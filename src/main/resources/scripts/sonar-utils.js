@@ -89,6 +89,17 @@ AJS.sonar.utils.randomNumber = function() {
 }
 
 /**
+ * Get percentage
+ * 
+ * @param number the ammount to get the percentage for
+ * @param totalNumber the total ammount
+ * @param the percentage
+ */
+AJS.sonar.utils.getPercentage = function(number, totalNumber) {
+	return Math.ceil((number / totalNumber) * 100);
+}
+
+/**
  * Generate the Error messages box
  * 
  * @param errors the array of i18n error keys

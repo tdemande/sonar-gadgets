@@ -25,14 +25,122 @@ AJS.sonar.views.LOC_VIEW = "loc";
 
 AJS.sonar.views.COMMENTS_VIEW = "comments";
 
+AJS.sonar.views.VIOLATIONS_VIEW = "violations";
+
 AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS = {
 		line_coverage: "highlight=line_coverage&amp;metric=uncovered_lines",
 		branch_coverage: "highlight=branch_coverage&amp;metric=uncovered_conditions",
 		public_documented_api_density: "highlight=public_documented_api_density&amp;metric=public_undocumented_api",
 		public_undocumented_api: "highlight=public_undocumented_api&amp;metric=public_undocumented_api",
 		commented_out_code_lines: "highlight=commented_out_code_lines&amp;metric=commented_out_code_lines",
-		duplicated_lines_density: "highlight=duplicated_lines_density&amp;metric=duplicated_lines"
+		duplicated_lines_density: "highlight=duplicated_lines_density&amp;metric=duplicated_lines",
+		violations_density: "highlight=weighted_violations&amp;metric=weighted_violations"
 };
+
+AJS.sonar.views.VIOLATIONS_PRIORITIES = {
+	blocker: {
+		name: 'blocker_violations',
+		priority: 'BLOCKER',
+		image: '/images/priority/BLOCKER.gif'
+	},
+	critical: {
+		name: 'critical_violations',
+		priority: 'CRITICAL',
+		image: '/images/priority/CRITICAL.gif'
+	},
+	major: {
+		name: 'major_violations',
+		priority: 'MAJOR',
+		image: '/images/priority/MAJOR.gif'
+	},
+	minor: {
+		name: 'minor_violations',
+		priority: 'MINOR',
+		image: '/images/priority/MINOR.gif'
+	},
+	info: {
+		name: 'info_violations',
+		priority: 'INFO',
+		image: '/images/priority/INFO.gif'
+	}
+};
+
+/**
+ * Generate the Sonar Violaions view
+ * 
+ * @param baseUrl the base url of the system displaying the view
+ * @param serverUrl the base url of the Sonar server
+ * @param measureData the measure data of a project on Sonar
+ * @param metricsDetails the details of the violations measures
+ * @return the jQuery wrapped view object
+ */
+AJS.sonar.views.generateViolationsView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+	AJS.sonar.text.load(baseUrl);
+	var view = AJS.sonar.views.createViewContainer();
+	var leftView = AJS.sonar.views.createColumn(true);
+	leftView.append(AJS.sonar.views.createHeader("sonar.views.violations.rules.compliance"));
+	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.VIOLATIONS_VIEW, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations_density"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations_density"), true).appendTo(leftView);
+	var efficiencyMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "efficiency");
+	var maintainabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "maintainability");
+	var portabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "portability");
+	var reliabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "reliability");
+	var usabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "usability");
+	AJS.$("<a/>").attr({
+		href: serverUrl + "/drilldown/violations/" + measureData.id + "?filter=category",
+		target: "_parent"
+	}).append(AJS.$("<img/>").attr({
+		src: serverUrl + "/chart?ck=xradar&w=140&h=110&c=777777|F8A036&m=100&g=0.25&l=Eff.,Mai.,Por.,Rel.,Usa.&v=" + efficiencyMeasure.val + "," + maintainabilityMeasure.val + "," + portabilityMeasure.val + "," + reliabilityMeasure.val + "," + usabilityMeasure.val,
+		width: 140,
+		height: 110
+	})).appendTo(leftView);
+	leftView.appendTo(view);
+	var rightView = AJS.sonar.views.createColumn(false);
+	rightView.append(AJS.sonar.views.createHeader("sonar.views.violations.violations.header"));
+	AJS.sonar.views.createViolationMeasureRow(serverUrl, AJS.sonar.views.VIOLATIONS_VIEW, measureData.key,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations"), true).appendTo(rightView);
+	AJS.sonar.views.createViolationPriorityRow(serverUrl, measureData,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.views.VIOLATIONS_PRIORITIES.blocker).appendTo(rightView);
+	AJS.sonar.views.createViolationPriorityRow(serverUrl, measureData,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.views.VIOLATIONS_PRIORITIES.critical).appendTo(rightView);
+	AJS.sonar.views.createViolationPriorityRow(serverUrl, measureData,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.views.VIOLATIONS_PRIORITIES.major).appendTo(rightView);
+	AJS.sonar.views.createViolationPriorityRow(serverUrl, measureData,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.views.VIOLATIONS_PRIORITIES.minor).appendTo(rightView);
+	AJS.sonar.views.createViolationPriorityRow(serverUrl, measureData,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
+			AJS.sonar.views.VIOLATIONS_PRIORITIES.info).appendTo(rightView);
+	rightView.appendTo(view);
+	AJS.sonar.views.addViewFooter(view, serverUrl);
+	return view;
+}
+
+AJS.sonar.views.createViolationPriorityRow = function(serverUrl, measureData, violationsData, priority) {
+	var row = AJS.$("<div/>").addClass("violation-row");
+	AJS.$("<img/>").attr({src: serverUrl + priority.image}).appendTo(row);
+	AJS.$("<div/>").addClass("violation-name").append(AJS.$("<a/>").attr({
+		href: serverUrl + "/drilldown/violations/" + measureData.key + "?priority=" + priority.priority,
+		target: "_parent"
+	}).text(AJS.sonar.text.getMsg("sonar.views.violations." + priority.name))).appendTo(row);
+	var measure = AJS.sonar.utils.getMeasureFromResource(measureData, priority.name);
+	AJS.$("<div/>").addClass("violations alert_" + measure.alert).text(measure.frmt_val).appendTo(row);
+	if (measure.val > 0) {
+		var percentage = AJS.sonar.utils.getPercentage(measure.val, violationsData.val);
+		AJS.$("<div/>").addClass("barchart").css({
+			width: percentage + "px"
+		}).append(AJS.$("<div/>").css({
+			width: "100%",
+			"background-color": "#777"
+		})).appendTo(row);
+	}
+	return row;
+}
 
 /**
  * Generate the Sonar Coverage view
@@ -214,6 +322,42 @@ AJS.sonar.views.createHeader = function(labelKey) {
  * @param isBig display the measure in big text (true) of small text (false)
  * @return the measure row element
  */
+AJS.sonar.views.createViolationMeasureRow = function(serverUrl, view, resourceKey, measure, metric, isBig) {
+	var textBase = "sonar.views." + view + ".";
+	var row = AJS.$("<p/>");
+	if (isBig) {
+		row.addClass("big-measure");
+	}
+	var linkParams = "metric=" + metric.key;
+	if (AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS[metric.key]) {
+		linkParams = AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS[metric.key];
+	}
+	var backLink = AJS.$("<a/>").attr({
+		href: serverUrl + "/drilldown/violations/" + resourceKey,
+		target: "_parent"
+	});
+	backLink.append(AJS.$("<span/>").addClass("alert_" + measure.alert).text(measure.frmt_val));
+	if (AJS.sonar.text.getMsg(textBase + metric.key) !== "" && AJS.sonar.text.getMsg(textBase + metric.key) !== (textBase + metric.key)) {
+		backLink.append(AJS.$("<span/>").text(" " + AJS.sonar.text.getMsg(textBase + metric.key)));
+	}
+	var imageName = AJS.sonar.utils.getTrendImage(measure, !isBig);
+	if (imageName !== "") {
+		backLink.append(AJS.$("<img/>").attr({src: serverUrl + "/images" + imageName}));
+	}
+	backLink.appendTo(row);
+	return row;
+}
+
+/**
+ * Create the Measure row for a view
+ * 
+ * @param serverUrl the Sonar base url
+ * @param view the name of the current view (e.g.: coverage, complexity, loc)
+ * @param measure the measure data
+ * @param metric the metric of the measure
+ * @param isBig display the measure in big text (true) of small text (false)
+ * @return the measure row element
+ */
 AJS.sonar.views.createMeasureRow = function(serverUrl, view, resourceId, measure, metric, isBig) {
 	var textBase = "sonar.views." + view + ".";
 	var row = AJS.$("<p/>");
@@ -234,7 +378,7 @@ AJS.sonar.views.createMeasureRow = function(serverUrl, view, resourceId, measure
 	}
 	var imageName = AJS.sonar.utils.getTrendImage(measure, !isBig);
 	if (imageName !== "") {
-		backLink.append(AJS.$("<img/>").attr({src: serverUrl + "/images" + imageName, border: 0}));
+		backLink.append(AJS.$("<img/>").attr({src: serverUrl + "/images" + imageName}));
 	}
 	backLink.appendTo(row);
 	return row;

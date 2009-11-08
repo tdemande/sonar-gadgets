@@ -16,9 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 a {
 	color: #000;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
 }
 
 .footer {
@@ -32,9 +36,8 @@ a {
 	margin: 10px;
 }
 
-.view-container p, .view-container h3,
-.left-column p, .left-column h3,
-.right-column p, .right-column h3 {
+.view-container p,.view-container h3,.left-column p,.left-column h3,.right-column p,.right-column h3
+	{
 	margin: 0;
 	padding: 0;
 }
@@ -55,6 +58,7 @@ a {
 }
 
 .alert_OK {
+	
 }
 
 .alert_WARN {
@@ -69,4 +73,40 @@ a {
 	color: #FFF;
 	margin: 0;
 	padding: 0 3px;
+}
+
+.violation-row {
+	clear: both;
+	width: 275px;
+}
+
+.violation-row img {
+	padding: 0px 2px 0px 0px;
+	float: left;
+}
+
+.violation-name {
+	padding: 0px 2px;
+	width: 50px;
+	text-align: left;
+	float: left;
+}
+
+.violations {
+	padding: 0px 2px;
+	width: 50px;
+	text-align: right;
+	float: left;
+}
+
+div.barchart {
+	border: 0;
+	margin: 0;
+	padding: 3px 2px;
+	float: left;
+}
+
+div.barchart>div {
+	background-color: #4B9FD5;
+	height: .9em;
 }

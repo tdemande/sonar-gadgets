@@ -25,6 +25,8 @@ AJS.sonar.accessor.LOC_METRICS = 'ncloc,lines,classes,packages,functions,accesso
 
 AJS.sonar.accessor.COMMENTS_METRICS = 'comment_lines_density,comment_lines,public_documented_api_density,public_undocumented_api,commented_out_code_lines,duplicated_lines_density,duplicated_lines,duplicated_blocks,duplicated_files';
 
+AJS.sonar.accessor.VIOLATIONS_METRICS = 'violations_density,efficiency,maintainability,portability,reliability,usability,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations';
+
 AJS.sonar.accessor.JSON_FORMAT = "json";
 
 /**
