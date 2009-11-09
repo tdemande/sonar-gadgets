@@ -27,6 +27,8 @@ AJS.sonar.accessor.COMMENTS_METRICS = 'comment_lines_density,comment_lines,publi
 
 AJS.sonar.accessor.VIOLATIONS_METRICS = 'violations_density,efficiency,maintainability,portability,reliability,usability,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations';
 
+AJS.sonar.accessor.COMPLEXITY_METRICS = 'function_complexity,class_complexity,complexity,statements,function_complexity_distribution,class_complexity_distribution';
+
 AJS.sonar.accessor.JSON_FORMAT = "json";
 
 /**

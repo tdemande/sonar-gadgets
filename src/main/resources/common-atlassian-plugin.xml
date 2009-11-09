@@ -80,6 +80,8 @@
 	<resource type="download" name="sonar-loc-thumb.png" location="images/gadgets/sonar-loc-thumb.png"/>
 	<resource type="download" name="sonar-violations-screenshot.png" location="images/gadgets/sonar-violations-screenshot.png"/>
 	<resource type="download" name="sonar-violations-thumb.png" location="images/gadgets/sonar-violations-thumb.png"/>
+	<resource type="download" name="sonar-complexity-screenshot.png" location="images/gadgets/sonar-complexity-screenshot.png"/>
+	<resource type="download" name="sonar-complexity-thumb.png" location="images/gadgets/sonar-complexity-thumb.png"/>
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
