@@ -79,7 +79,7 @@ AJS.sonar.views.VIOLATIONS_PRIORITIES = {
 AJS.sonar.views.generateComplexityView = function(baseUrl, serverUrl, measureData, metricsDetails) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
-	var leftView = AJS.$("<div/>").addClass("left-column-onethird");
+	var leftView = AJS.$("<div/>").attr({id: "leftColumn"}).addClass("left-column-onethird");
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.complexity"));
 	AJS.sonar.views.createComplexityRow(serverUrl, AJS.sonar.views.COMPLEXITY_VIEW, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "function_complexity"),
@@ -94,7 +94,7 @@ AJS.sonar.views.generateComplexityView = function(baseUrl, serverUrl, measureDat
 			AJS.sonar.utils.getMeasureFromResource(measureData, "statements"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "statements"), false).appendTo(leftView);
 	leftView.appendTo(view);
-	var rightView = AJS.$("<div/>").addClass("right-column-twothird");
+	var rightView = AJS.$("<div/>").attr({id: "rightColumn"}).addClass("right-column-twothird");
 	var tabsContainer = AJS.$("<div/>").attr({id: "tabs"});
 	var chartsContainer = AJS.$("<div/>").attr({id: "charts"});
 	AJS.sonar.views.addComplexityChart(serverUrl, tabsContainer, chartsContainer,
@@ -420,8 +420,10 @@ AJS.sonar.views.createViewContainer = function() {
 AJS.sonar.views.createColumn = function(isLeft) {
 	var column = AJS.$("<div/>");
 	if (isLeft) {
+		column.attr({id: "leftColumn"});
 		column.addClass("left-column");
 	} else {
+		column.attr({id: "rightColumn"});
 		column.addClass("right-column");
 	}
 	return column;
@@ -516,7 +518,7 @@ AJS.sonar.views.createMeasureRow = function(serverUrl, view, resourceId, measure
  * @param serverUrl the url of the Sonar server
  */
 AJS.sonar.views.addViewFooter = function(viewContainer, serverUrl) {
-	var footer = AJS.$("<div/>").addClass("footer")
+	var footer = AJS.$("<div/>").addClass("sonar-footer")
 		.text(AJS.sonar.text.getMsg("sonar.views.connected.to"))
 		.append(AJS.$("<a/>").attr({
 			href: serverUrl,

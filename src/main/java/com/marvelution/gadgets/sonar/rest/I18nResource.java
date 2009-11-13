@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -37,6 +38,7 @@ import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
 import com.atlassian.sal.api.message.I18nResolver;
 import com.marvelution.gadgets.sonar.rest.model.I18nEntries;
 import com.marvelution.gadgets.sonar.rest.model.I18nEntries.I18nEntry;
+import com.sun.jersey.spi.resource.Singleton;
 
 /**
  * REST resource to get i18n keys and values for Sonar JavaScript objects
@@ -45,7 +47,9 @@ import com.marvelution.gadgets.sonar.rest.model.I18nEntries.I18nEntry;
  */
 @Path("/i18n")
 @AnonymousAllowed
+@Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
+@Singleton
 public class I18nResource {
 
 	private I18nResolver i18nResolver;

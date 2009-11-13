@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
+
 a {
 	color: #000;
 }
@@ -25,15 +26,17 @@ img {
 	vertical-align: text-top;
 }
 
-.footer {
+.sonar-footer {
 	padding: 5px 5px 2px 5px;
 	text-align: center;
 	font-size: xx-small;
-	width: 100%
+	width: 100%;
+	float: right;
 }
 
 .view-container {
 	margin: 10px;
+	background-color: #FFF;
 }
 
 .view-container p, .view-container h3,

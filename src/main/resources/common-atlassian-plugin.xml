@@ -25,9 +25,7 @@
 	<resource type="i18n" name="i18n-sonar-views" location="i18n.sonar-views" />
 
 	<!-- W E B   R E S O U R C E S -->
-	<web-resource key="sonar-common" name="Common Sonar Web Resources">
-		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
-		<dependency>${atlassian.plugin.key}:sonar-css</dependency>
+	<web-resource key="sonar-js" name="Common Sonar Web Resources">
 		<resource type="download" name="sonar-i18n-min.js" location="scripts/sonar-i18n-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -40,6 +38,11 @@
 		<resource type="download" name="sonar-views-min.js" location="scripts/sonar-views-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+	</web-resource>
+	<web-resource key="sonar-common" name="Common Sonar Web Resources">
+		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
+		<dependency>${atlassian.plugin.key}:sonar-css</dependency>
+		<dependency>${atlassian.plugin.key}:sonar-js</dependency>
 	</web-resource>
 	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
 		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
@@ -59,8 +62,9 @@
 	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
-	<rest key="gadgetRestPoints" path="/sonar" version="1.0" system="false"
-		description="Provides REST endpoints used to display Sonar gadget contents." />
+	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
+		<description>Provides REST endpoints used to display Sonar gadget contents.</description>
+	</rest>
 
 	<!-- G A D G E T S -->
 	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml" />

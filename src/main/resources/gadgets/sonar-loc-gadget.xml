@@ -28,6 +28,7 @@
 			<Param name="categories">
 				JIRA
 				Sonar
+				External Content
 				Other
 			</Param>
 		</Optional>
