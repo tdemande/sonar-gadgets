@@ -21,7 +21,9 @@
 	<ModulePrefs title="__MSG_sonar.gadget.treemap.title__" directory_title="__MSG_sonar.gadget.treemap.title__"
 				 description="__MSG_sonar.gadget.treemap.description__"
 				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
-				 author_treemapation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100">
+				 author_treemapation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
+				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-treemap-gadget", "sonar-treemap-screenshot.png")'
+				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-treemap-gadget", "sonar-treemap-thumb.png")'>
 		<Optional feature="gadget-directory">
 			<Param name="categories">
 				JIRA
@@ -37,20 +39,24 @@
         <Optional feature="atlassian.util" />
         <Require feature="oauthpopup"/>
 		#oauth
-		#supportedLocales("sonar.gadget,sonar.error")
+		#supportedLocales("gadget.common,sonar.views,sonar.gadget,sonar.error")
 	</ModulePrefs>
 	<UserPref name="sonarServer" datatype="hidden" default_value="" />
 	<UserPref name="sonarProject" datatype="hidden" default_value="" />
-	<UserPref name="isConfigured" datatype="hidden" default_value="true" />
+	<UserPref name="sizeMetric" datatype="hidden" default_value="ncloc" />
+	<UserPref name="colorMetric" datatype="hidden" default_value="violations_density" />
+	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
 	<Content type="html">
 		<![CDATA[
 		#requireResource("${atlassian.plugin.key}:gadget-common")
         #includeResources()
 		<script type="text/javascript">
 		gadgets.window.setTitle("__MSG_sonar.gadget.treemap.title__");
+		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
 		(function () {
 			AJS.Gadget({
 				baseUrl: "__ATLASSIAN_BASE_URL__",
+				useOauth: "/rest/gadget/1.0/currentUser",
 				config: {
 					descriptor: function (args) {
 						var gadget = this;
@@ -58,7 +64,7 @@
 						return  {
 							action : "",
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
-							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject")
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", {label: "__MSG_sonar.gadget.all.projects__", value: ""})
 						};
 					},
 					args: []
@@ -69,18 +75,54 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
-						var baseUrl = AJS.$.ajaxSettings.baseUrl;
+						gadget.showLoading();
+						if (args.measureData.length == 1) {
+							gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.violations.project.title__", args.measureData[0].name));
+						} else {
+							gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.violations.project.title__", "__MSG_sonar.gadget.all.projects__"));
+						}
+						var dimensions = {
+							width: gadget.getView().width() - 20,
+							height: gadget.getView().width() - 20,
+						};
+						var onChangeCallback = function(sizeMetric, colorMetric) {
+							AJS.$.ajax({
+								type: "GET",
+								dataType: "json",
+								cache: false,
+								global: false,
+								url: gadget.getBaseUrl() + "/rest/gadget/1.0/currentUser",
+								success: function() {
+									gadget.savePref("sizeMetric", sizeMetric.key);
+									gadget.savePref("colorMetric", colorMetric.key);
+								},
+								error: function(request, textStatus) {
+								}
+							});
+						};
+						gadget.getView().append(
+							AJS.sonar.views.generateTreemapView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), gadget.getPref("sonarProject"),
+																args.metricsDetails, gadget.getPref("sizeMetric"), gadget.getPref("colorMetric"),
+																dimensions, onChangeCallback)
+						);
+						gadget.getView().height((dimensions.height + 50) + "px");
+						gadget.hideLoading();
 						gadget.resize();
 					},
 					args: [{
-						key: "data",
+						key: "measureData",
 						ajaxOptions: function () {
 							var gadget = this;
 							return {
-								url: "",
-								data: {
-									view: ""
-								}
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), "")
+							};
+						}
+					}, {
+						key: "metricsDetails",
+						ajaxOptions: function () {
+							var gadget = this;
+							return {
+								url: AJS.sonar.accessor.generateServerMetricsApiUrl(gadget.getPref("sonarServer"))
 							};
 						}
 					}]

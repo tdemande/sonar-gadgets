@@ -63,7 +63,7 @@
 						gadgets.window.setTitle("__MSG_sonar.gadget.coverage.title__");
 						return  {
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
-							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject")
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", null)
 						};
 					},
 					args: []

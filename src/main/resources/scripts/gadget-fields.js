@@ -50,9 +50,10 @@ AJS.gadget.sonar.fields.isConfigured = function() {
  * @param gadget the Gadget to generate the configuration fields for
  * @param serverPrefField the name of the server preference field
  * @param projectPrefField the name of the project preference field
+ * @param addAllProjectsOption flag to add an option for all projects
  * @return the complete array of configuration fields for the Gadget
  */
-AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, serverPrefField, projectPrefField) {
+AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, serverPrefField, projectPrefField, addAllProjectsOption) {
 	var gadgetId = AJS.sonar.utils.randomNumber();
 	return [{
 		userpref: serverPrefField,
@@ -67,7 +68,7 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 			}).val(gadget.getPref(serverPrefField)).addClass("text");
 			serverPref.blur(function() {
 				var selectList = AJS.$("#sonar_project_picker_" + gadgetId + " select");
-				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, serverPref.val(), selectList, "");
+				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, serverPref.val(), selectList, "", addAllProjectsOption);
 			});
 			parentDiv.append(serverPref).append(
 				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.server.description"))
@@ -87,7 +88,7 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 			if (gadget.getPref(serverPrefField) === "") {
 				projectList.css("display", "none");
 			} else {
-				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, gadget.getPref(serverPrefField), projectList, gadget.getPref(projectPrefField));
+				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, gadget.getPref(serverPrefField), projectList, gadget.getPref(projectPrefField), addAllProjectsOption);
 			}
 			parentDiv.append(AJS.gadget.sonar.fields.waitImage()).append(projectList).append(
 				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.project.description"))

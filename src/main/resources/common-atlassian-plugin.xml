@@ -25,7 +25,22 @@
 	<resource type="i18n" name="i18n-sonar-views" location="i18n.sonar-views" />
 
 	<!-- W E B   R E S O U R C E S -->
+	<web-resource key="jquery-plugins" name="Treemap plugin for jQuery">
+		<resource type="download" name="treemap-min.js" location="scripts/jQuery/treemap-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="jquery.bgiframe-min.js" location="scripts/jQuery/jquery.bgiframe-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="jquery.dimensions-min.js" location="scripts/jQuery/jquery.dimensions-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="jquery.tooltip-min.js" location="scripts/jQuery/jquery.tooltip-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 	<web-resource key="sonar-js" name="Common Sonar Web Resources">
+		<dependency>${atlassian.plugin.key}:jquery-plugins</dependency>
 		<resource type="download" name="sonar-i18n-min.js" location="scripts/sonar-i18n-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -86,6 +101,8 @@
 	<resource type="download" name="sonar-violations-thumb.png" location="images/gadgets/sonar-violations-thumb.png"/>
 	<resource type="download" name="sonar-complexity-screenshot.png" location="images/gadgets/sonar-complexity-screenshot.png"/>
 	<resource type="download" name="sonar-complexity-thumb.png" location="images/gadgets/sonar-complexity-thumb.png"/>
+	<resource type="download" name="sonar-treemap-screenshot.png" location="images/gadgets/sonar-treemap-screenshot.png"/>
+	<resource type="download" name="sonar-treemap-thumb.png" location="images/gadgets/sonar-treemap-thumb.png"/>
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />

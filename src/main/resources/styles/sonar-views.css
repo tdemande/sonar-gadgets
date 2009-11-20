@@ -151,3 +151,55 @@ div.barchart>div {
 	text-align: center;
 	height: 150px;
 }
+
+.treemap-header {
+	font-size: 90%;
+}
+
+.treemap-header label {
+	padding: 0px 5px;
+}
+
+.treemap-header select {
+	font-size: 90%;
+}
+
+.treemap-tooltip {
+}
+
+.treemap-tooltip-header {
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.treemap-tooltip-measure {
+	font-size: 95%;
+}
+
+.treemapView {
+}
+
+.treemapSquare {
+}
+
+.treemapH, .treemapV {
+}
+
+.treemapCell {
+}
+
+.treemapHead {
+}
+
+.treemapLegend {
+}
+
+.treemapLegendDescr {
+}
+
+.sonar-treemap-cell {
+	padding: 5px;
+	color: #FFF;
+	font-size: 105%;
+	font-weight: bold;
+}

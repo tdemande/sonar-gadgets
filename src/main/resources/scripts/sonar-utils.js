@@ -76,7 +76,74 @@ AJS.sonar.utils.getMetricFromMetricsArray = function(metrics, metricKey) {
 			return metrics[index];
 		}
 	}
-	return metirc;
+	return metric;
+}
+
+/**
+ * Get all the Metrics used for the Color select box with the treemap
+ * 
+ * @param metrics Array of all the metrics available
+ * @return Array of all color metrics
+ */
+AJS.sonar.utils.getColorMetrics = function(metrics) {
+	var colorMetrics = new Array();
+	for(var index in metrics) {
+		if (metrics[index].val_type === "LEVEL" || metrics[index].val_type === "PERCENT") {
+			colorMetrics.push(metrics[index]);
+		}
+	}
+	colorMetrics.sort(function(a, b) {
+		return (a.name>b.name) - (b.name>a.name);
+	});
+	return colorMetrics;
+}
+
+/**
+ * Get all the Metrics used for the Size select box with the treemap
+ * 
+ * @param metrics Array of all the metrics available
+ * @return Array of all size metrics
+ */
+AJS.sonar.utils.getSizeMetrics = function(metrics) {
+	var sizeMetrics = new Array();
+	for(var index in metrics) {
+		if ((metrics[index].val_type === "INT" || metrics[index].val_type === "FLOAT" || metrics[index].val_type === "MILLISEC")
+				&& metrics[index].val_type !== "PERCENT" && metrics[index].domain != undefined && metrics[index].domain != null
+				&& metrics[index].domain !== "") {
+			sizeMetrics.push(metrics[index]);
+		}
+	}
+	sizeMetrics.sort(function(a, b) {
+		return (a.name>b.name) - (b.name>a.name);
+	});
+	return sizeMetrics;
+}
+
+/**
+ * Create a Select element for Metrics
+ * 
+ * @param name the name of the select element
+ * @param id the id of the select element
+ * @param options the Metric options
+ * @param selected the selected metric key
+ * @param onChange function to bind to the onChange event of the select element
+ * @return the select element
+ */
+AJS.sonar.utils.createMetricSelectElement = function(name, id, options, selected, onChange) {
+	var select = AJS.$("<select/>").attr({
+		name: name,
+		id: id
+	});
+	AJS.$(options).each(function(index, option) {
+		AJS.$("<option/>").attr({
+			value: option.key,
+			selected: (option.key == selected)
+		}).text(option.name).appendTo(select);
+	});
+	if (onChange != undefined && onChange != null) {
+		select.change(onChange);
+	}
+	return select;
 }
 
 /**
@@ -113,4 +180,53 @@ AJS.sonar.utils.generateErrorMessageBox = function(errors) {
 	});
 	errorList.appendTo(errorDiv);
 	return errorDiv;
+}
+
+/**
+ * Convert a RGB color code to Hex color Code
+ * 
+ * @param red
+ * @param green
+ * @param blue
+ * @return hex color code
+ */
+AJS.sonar.utils.rgbToHex = function(red, green, blue) {
+	return AJS.sonar.utils.toHex(red) + AJS.sonar.utils.toHex(green) + AJS.sonar.utils.toHex(blue);
+}
+
+/**
+ * Convert a number to hex number
+ * 
+ * @param number the number to convert
+ * @return the hex number
+ */
+AJS.sonar.utils.toHex = function(number) {
+	if (number == null) {
+		return "00";
+	}
+	number = parseInt(number);
+	if (number == 0 || isNaN(number)) {
+		return "00";
+	}
+	number = Math.max(0, number);
+	number = Math.min(number, 255);
+	number = Math.round(number);
+	return "0123456789ABCDEF".charAt((number - number % 16) / 16) + "0123456789ABCDEF".charAt(number % 16);
+}
+
+/**
+ * Mix two colors
+ * 
+ * @param color the main color
+ * @param mask the masking color
+ * @param opacity the opacity of the masking color
+ * @return the masked color
+ */
+AJS.sonar.utils.mixColors = function(color, mask, opacity) {
+	var newColor = {r: 0, g: 0, b: 0};
+	opacity /= 100.0;
+	newColor.r = Math.round((color.r * opacity) + (mask.r * (1 - opacity)));
+	newColor.g = Math.round((color.g * opacity) + (mask.g * (1 - opacity)));
+	newColor.b = Math.round((color.b * opacity) + (mask.b * (1 - opacity)));
+	return newColor;
 }

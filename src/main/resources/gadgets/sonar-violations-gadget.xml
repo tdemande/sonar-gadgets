@@ -62,7 +62,7 @@
 						return  {
 							action : "",
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
-							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject")
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", null)
 						};
 					},
 					args: []

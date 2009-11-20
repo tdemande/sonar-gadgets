@@ -59,5 +59,13 @@ AJS.sonar.accessor.generateServerMetricsApiUrl = function(serverUrl) {
  * @return the generated API url
  */
 AJS.sonar.accessor.generateApiUrl = function(serverUrl, projectKey, metrics) {
-	return AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl) + "&metrics=" + metrics + "&resource=" + projectKey + "&includetrends=true&includealerts=true";
+	var metricsParam = "";
+	if (metrics !== "") {
+		metricsParam = "&metrics=" + metrics
+	}
+	var resourceParam = "";
+	if (projectKey !== "") {
+		resourceParam = "&resource=" + projectKey;
+	}
+	return AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl) + metricsParam + resourceParam + "&includetrends=true&includealerts=true";
 }

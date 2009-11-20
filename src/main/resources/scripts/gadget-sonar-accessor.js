@@ -25,9 +25,10 @@ AJS.$.namespace("AJS.gadget.sonar.accessor");
  * @param gadget the Gadget
  * @param serverUrl the Sonar server url
  * @param projectSelector the Select element to add the projects to
+ * @param addAllProjectsOption flag to add an option for all projects
  * @param selectedKey the selected Project Key
  */
-AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget, serverUrl, projectSelector, selectedKey) {
+AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget, serverUrl, projectSelector, selectedKey, addAllProjectsOption) {
 	var waitImage = AJS.$("#waitingImage");
 	projectSelector.empty();
 	projectSelector.css("display", "none");
@@ -38,6 +39,14 @@ AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget,
 		type: "GET",
 		dataType: "json",
 		success: function(data) {
+			if (addAllProjectsOption !== null && addAllProjectsOption.value !== undefined && addAllProjectsOption.label !== undefined) {
+				projectSelector.append(
+					AJS.$("<option/>").attr({
+						value: addAllProjectsOption.value,
+						selected: (selectedKey === addAllProjectsOption.value)
+					}).text(addAllProjectsOption.label)
+				);
+			}
 			AJS.$(data).each(function() {
 				projectSelector.append(
 					AJS.$("<option/>").attr({
