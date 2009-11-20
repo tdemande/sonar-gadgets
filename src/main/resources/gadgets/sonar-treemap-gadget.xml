@@ -56,7 +56,6 @@
 		(function () {
 			AJS.Gadget({
 				baseUrl: "__ATLASSIAN_BASE_URL__",
-				useOauth: "/rest/gadget/1.0/currentUser",
 				config: {
 					descriptor: function (args) {
 						var gadget = this;
@@ -86,19 +85,8 @@
 							height: gadget.getView().width() - 20,
 						};
 						var onChangeCallback = function(sizeMetric, colorMetric) {
-							AJS.$.ajax({
-								type: "GET",
-								dataType: "json",
-								cache: false,
-								global: false,
-								url: gadget.getBaseUrl() + "/rest/gadget/1.0/currentUser",
-								success: function() {
-									gadget.savePref("sizeMetric", sizeMetric.key);
-									gadget.savePref("colorMetric", colorMetric.key);
-								},
-								error: function(request, textStatus) {
-								}
-							});
+							gadget.savePref("sizeMetric", sizeMetric.key);
+							gadget.savePref("colorMetric", colorMetric.key);
 						};
 						gadget.getView().append(
 							AJS.sonar.views.generateTreemapView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), gadget.getPref("sonarProject"),
