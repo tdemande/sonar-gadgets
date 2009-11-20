@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -37,6 +38,7 @@ import org.mockito.internal.verification.VerificationModeFactory;
 
 import com.atlassian.sal.api.message.I18nResolver;
 import com.marvelution.gadgets.sonar.rest.model.I18nEntries;
+import com.marvelution.gadgets.sonar.rest.model.I18nEntries.I18nEntry;
 
 /**
  * Testcase for {@link I18nResource}
@@ -77,6 +79,12 @@ public class I18nResourceTest {
 		final Response response = resource.generate(headers);
 		assertThat(response.getStatus(), is(200));
 		assertThat(response.getEntity(), is(I18nEntries.class));
+		final I18nEntries entries = (I18nEntries) response.getEntity();
+		assertThat(entries.getEntries().isEmpty(), is(false));
+		assertThat(entries.getEntries().size(), is(1));
+		final I18nEntry entry = ((List<I18nEntry>) entries.getEntries()).get(0);
+		assertThat(entry.getKey(), is("sonar"));
+		assertThat(entry.getValue(), is("Sonar"));
 		verify(headers, VerificationModeFactory.times(3)).getAcceptableLanguages();
 	}
 
