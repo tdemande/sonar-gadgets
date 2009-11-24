@@ -23,6 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -75,7 +76,29 @@ public class I18nResourceTest {
 	public void testGenerate() throws Exception {
 		when(i18nResolver.getAllTranslationsForPrefix("sonar", Locale.ENGLISH)).thenReturn(
 			Collections.singletonMap("sonar", "Sonar"));
-		when(headers.getAcceptableLanguages()).thenReturn(Collections.singletonList(Locale.ENGLISH));
+		when(headers.getAcceptableLanguages()).thenReturn(new ArrayList<Locale>());
+		final Response response = resource.generate(headers);
+		assertThat(response.getStatus(), is(200));
+		assertThat(response.getEntity(), is(I18nEntries.class));
+		final I18nEntries entries = (I18nEntries) response.getEntity();
+		assertThat(entries.getEntries().isEmpty(), is(false));
+		assertThat(entries.getEntries().size(), is(1));
+		final I18nEntry entry = ((List<I18nEntry>) entries.getEntries()).get(0);
+		assertThat(entry.getKey(), is("sonar"));
+		assertThat(entry.getValue(), is("Sonar"));
+		verify(headers, VerificationModeFactory.times(2)).getAcceptableLanguages();
+	}
+
+	/**
+	 * Test {@link I18nResource#generate(HttpHeaders)}
+	 * 
+	 * @throws Exception in case of errors
+	 */
+	@Test
+	public void testGenerateLocaleFromHeaders() throws Exception {
+		when(i18nResolver.getAllTranslationsForPrefix("sonar", new Locale("nl"))).thenReturn(
+			Collections.singletonMap("sonar", "Sonar"));
+		when(headers.getAcceptableLanguages()).thenReturn(Collections.singletonList(new Locale("nl")));
 		final Response response = resource.generate(headers);
 		assertThat(response.getStatus(), is(200));
 		assertThat(response.getEntity(), is(I18nEntries.class));
