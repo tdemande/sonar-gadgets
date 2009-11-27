@@ -39,9 +39,11 @@ img {
 	background-color: #FFF;
 }
 
-.view-container p, .view-container h3,
-.left-column p, .left-column h3,
-.right-column p,.right-column h3 {
+.view-container p, .view-container h4,
+.left-column p, .left-column h4,
+.right-column p, .right-column h4,
+.left-column-onethird p, .left-column-onethird h4,
+.right-column-twothird p, .right-column-twothird h4 {
 	margin: 0;
 	padding: 0;
 }
