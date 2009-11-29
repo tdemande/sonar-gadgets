@@ -167,6 +167,8 @@ div.barchart>div {
 }
 
 .treemap-tooltip {
+	z-index: 3000;
+	white-space: nowrap; 
 }
 
 .treemap-tooltip-header {

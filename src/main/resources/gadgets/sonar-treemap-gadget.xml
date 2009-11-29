@@ -46,7 +46,9 @@
 	<UserPref name="sizeMetric" datatype="hidden" default_value="ncloc" />
 	<UserPref name="colorMetric" datatype="hidden" default_value="violations_density" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
-	<Content type="html">
+    <UserPref name="refresh" datatype="hidden" default_value="false"/>
+    <UserPref name="isPopup" datatype="hidden" default_value="false"/>
+	<Content type="html" view="profile,canvas,home">
 		<![CDATA[
 		#requireResource("${atlassian.plugin.key}:gadget-common")
         #includeResources()
@@ -93,7 +95,7 @@
 																args.metricsDetails, gadget.getPref("sizeMetric"), gadget.getPref("colorMetric"),
 																dimensions, onChangeCallback)
 						);
-						gadget.getView().height((dimensions.height + 50) + "px");
+						gadget.getView().height((dimensions.height + 50));
 						gadget.hideLoading();
 						gadget.resize();
 					},
