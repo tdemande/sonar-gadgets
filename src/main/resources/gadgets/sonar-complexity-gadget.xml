@@ -45,12 +45,12 @@
 	<UserPref name="sonarProject" datatype="hidden" default_value="" />
 	<UserPref name="refresh" datatype="hidden" default_value="false" />
 	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
+	<UserPref name="titleRequired" datatype="hidden" default_value="true" />
 	<Content type="html">
 		<![CDATA[
 		#requireResource("${atlassian.plugin.key}:gadget-common")
         #includeResources()
 		<script type="text/javascript">
-		gadgets.window.setTitle("__MSG_sonar.gadget.complexity.title__");
 		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
 		(function () {
 			AJS.Gadget({
@@ -73,8 +73,10 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
-						gadget.showLoading();
 						if (!args.measureData[0]) {
+							if (gadget.getPref("titleRequired") || gadget.getPref("titleRequired") == "true") {
+								gadgets.window.setTitle("__MSG_sonar.gadget.complexity.title__");
+							}
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
@@ -82,13 +84,13 @@
 							);
 						} else {
 							var measureData = args.measureData[0];
-							gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.complexity.project.title__", measureData.name));
+							if (gadget.getPref("titleRequired") || gadget.getPref("titleRequired") == "true") {
+								gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.complexity.project.title__", measureData.name));
+							}
 							gadget.getView().append(
 								AJS.sonar.views.generateComplexityView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
 							);
 						}
-						gadget.hideLoading();
-						gadget.resize();
 					},
 					args: [{
 						key: "measureData",

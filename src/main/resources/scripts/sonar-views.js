@@ -95,6 +95,7 @@ AJS.sonar.views.generateTreemapView = function(baseUrl, serverUrl, resourceKey, 
 		dimensions = AJS.sonar.views.DEFAULT_TREEMAP_DIMENSIONS;
 	}
 	var onChange = function() {
+		AJS.$("#treemap-loading").show();
 		var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, AJS.$("#sizeSelect").val());
 		var colorMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, AJS.$("#colorSelect").val());
 		AJS.sonar.views.populateTreemap(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
@@ -111,9 +112,9 @@ AJS.sonar.views.generateTreemapView = function(baseUrl, serverUrl, resourceKey, 
 	AJS.$("<label/>").attr({"for" : "colorSelect"}).text(AJS.sonar.text.getMsg("sonar.views.treemap.color") + ": ").appendTo(header);
 	AJS.sonar.utils.createMetricSelectElement("colorMetric", "colorSelect", AJS.sonar.utils.getColorMetrics(metricsDetails), colorMetric.key,
 			onChange).appendTo(header);
+	AJS.$("<img/>").attr({id: "treemap-loading", src: WAIT_IMAGE_SRC}).appendTo(header);
 	view.append(header);
 	var treemapContainer = AJS.$("<div/>").attr({id: "sonarTreemap"});
-	AJS.$("<img/>").attr({src: WAIT_IMAGE_SRC}).appendTo(treemapContainer);
 	view.append(treemapContainer);
 	AJS.sonar.views.populateTreemap(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
 	AJS.sonar.views.addViewFooter(view, serverUrl);
@@ -230,6 +231,7 @@ AJS.sonar.views.populateTreemap = function(treemapContainer, serverUrl, resource
 					});
 				});
 			}
+			AJS.$("#treemap-loading").hide();
 		},
 		error: function(request, textStatus) {
 			treemapContainer.empty();

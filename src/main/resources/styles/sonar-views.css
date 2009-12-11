@@ -30,12 +30,13 @@ img {
 	padding: 5px 5px 2px 5px;
 	text-align: center;
 	font-size: xx-small;
-	width: 100%;
+	width: 99%;
 	float: right;
 }
 
 .view-container {
-	margin: 10px;
+	margin: 5px;
+	padding: 0;
 	background-color: #FFF;
 }
 
@@ -49,22 +50,22 @@ img {
 }
 
 .left-column {
-	width: 49%;
+	width: 48%;
 	float: left;
 }
 
 .right-column {
-	width: 49%;
+	width: 48%;
 	float: right;
 }
 
 .left-column-onethird {
-	width: 33%;
+	width: 32%;
 	float: left;
 }
 
 .right-column-twothird {
-	width: 65%;
+	width: 64%;
 	float: right;
 }
 
@@ -93,7 +94,7 @@ img {
 
 .violation-row {
 	clear: both;
-	width: 275px;
+	width: 220px;
 }
 
 .violation-row img {

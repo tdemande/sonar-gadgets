@@ -44,6 +44,19 @@ AJS.gadget.sonar.fields.isConfigured = function() {
 	};
 }
 
+ /**
+  * Get the Gadgets' titleRequired field
+  *
+  * @return the Gadgets' titleRequired field
+  */
+ AJS.gadget.sonar.fields.titleRequired = function() {
+ 	return {
+ 		userpref: "titleRequired",
+ 		type: "hidden",
+ 		value: "true"
+ 	};
+ }
+
 /**
  * Generate the Server and the Project picker fields for a gadget
  * 
@@ -94,5 +107,5 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.project.description"))
 			);
 		}
-	}, AJS.gadget.sonar.fields.isConfigured()];
+	}, AJS.gadget.sonar.fields.isConfigured(), AJS.gadget.sonar.fields.titleRequired()];
 }
