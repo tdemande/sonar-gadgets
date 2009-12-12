@@ -94,6 +94,10 @@ AJS.sonar.views.generateTreemapView = function(baseUrl, serverUrl, resourceKey, 
 	if (dimensions == null || dimensions.width == undefined || dimensions.height == undefined) {
 		dimensions = AJS.sonar.views.DEFAULT_TREEMAP_DIMENSIONS;
 	}
+	var header = AJS.$("<div/>").addClass("treemap-header");
+	view.append(header);
+	var treemapContainer = AJS.$("<div/>").attr({id: "sonarTreemap"});
+	view.append(treemapContainer);
 	var onChange = function() {
 		AJS.$("#treemap-loading").show();
 		var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, AJS.$("#sizeSelect").val());
@@ -105,7 +109,6 @@ AJS.sonar.views.generateTreemapView = function(baseUrl, serverUrl, resourceKey, 
 			} catch(x) {}
 		}
 	};
-	var header = AJS.$("<div/>").addClass("treemap-header");
 	AJS.$("<label/>").attr({"for" : "sizeSelect"}).text(AJS.sonar.text.getMsg("sonar.views.treemap.size") + ": ").appendTo(header);
 	AJS.sonar.utils.createMetricSelectElement("sizeMetric", "sizeSelect", AJS.sonar.utils.getSizeMetrics(metricsDetails), sizeMetric.key,
 			onChange).appendTo(header);
@@ -113,9 +116,6 @@ AJS.sonar.views.generateTreemapView = function(baseUrl, serverUrl, resourceKey, 
 	AJS.sonar.utils.createMetricSelectElement("colorMetric", "colorSelect", AJS.sonar.utils.getColorMetrics(metricsDetails), colorMetric.key,
 			onChange).appendTo(header);
 	AJS.$("<img/>").attr({id: "treemap-loading", src: WAIT_IMAGE_SRC}).appendTo(header);
-	view.append(header);
-	var treemapContainer = AJS.$("<div/>").attr({id: "sonarTreemap"});
-	view.append(treemapContainer);
 	AJS.sonar.views.populateTreemap(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
 	AJS.sonar.views.addViewFooter(view, serverUrl);
 	return view;
@@ -209,6 +209,9 @@ AJS.sonar.views.populateTreemap = function(treemapContainer, serverUrl, resource
 				});
 				AJS.$(resources).each(function(index, resource) {
 					var cell = AJS.$("#" + resource.id);
+					cell.click(function(event) {
+						location.href = serverUrl + "/project/index/" + resource.id;
+					});
 					cell.tooltip({
 						delay: 0,
 						showUrl: false,

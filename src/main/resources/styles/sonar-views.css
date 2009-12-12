@@ -191,6 +191,7 @@ div.barchart>div {
 }
 
 .treemapCell {
+	cursor: pointer;
 }
 
 .treemapHead {
