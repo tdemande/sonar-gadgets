@@ -210,7 +210,7 @@ AJS.sonar.views.populateTreemap = function(treemapContainer, serverUrl, resource
 				AJS.$(resources).each(function(index, resource) {
 					var cell = AJS.$("#" + resource.id);
 					cell.click(function(event) {
-						location.href = serverUrl + "/project/index/" + resource.id;
+						parent.location.href = serverUrl + "/project/index/" + resource.id;
 					});
 					cell.tooltip({
 						delay: 0,
