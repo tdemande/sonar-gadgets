@@ -65,6 +65,9 @@
 	</web-resource>
 	<web-resource key="gadget-common" name="Common Gadget Web Resources">
 		<dependency>${atlassian.plugin.key}:sonar-common</dependency>
+		<resource type="download" name="gadget-utils-min.js" location="scripts/gadget-utils-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 		<resource type="download" name="gadget-config-min.js" location="scripts/gadget-config-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>

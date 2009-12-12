@@ -60,7 +60,7 @@
 				config: {
 					descriptor: function (args) {
 						var gadget = this;
-						gadgets.window.setTitle("__MSG_sonar.gadget.coverage.title__");
+						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.coverage.title__");
 						return  {
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
 							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", null)
@@ -75,9 +75,7 @@
 						var gadget = this;
 						gadget.getView().empty();
 						if (!args.measureData[0]) {
-							if (gadget.getPref("titleRequired") || gadget.getPref("titleRequired") == "true") {
-								gadgets.window.setTitle("__MSG_sonar.gadget.coverage.title__");
-							}
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.coverage.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
@@ -85,9 +83,7 @@
 							);
 						} else {
 							var measureData = args.measureData[0];
-							if (gadget.getPref("titleRequired") || gadget.getPref("titleRequired") == "true") {
-								gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.coverage.project.title__", measureData.name));
-							}
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.coverage.project.title__", measureData.name));
 							gadget.getView().append(
 								AJS.sonar.views.generateCoverageView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
 							);

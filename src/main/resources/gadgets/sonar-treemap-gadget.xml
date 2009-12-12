@@ -61,7 +61,7 @@
 				config: {
 					descriptor: function (args) {
 						var gadget = this;
-						gadgets.window.setTitle("__MSG_sonar.gadget.treemap.title__");
+						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.treemap.title__");
 						return  {
 							action : "",
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
@@ -77,12 +77,10 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
-						if (gadget.getPref("titleRequired") || gadget.getPref("titleRequired") == "true") {
-							if (args.measureData.length == 1) {
-								gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.violations.project.title__", args.measureData[0].name));
-							} else {
-								gadgets.window.setTitle(AJS.format("__MSG_sonar.gadget.violations.project.title__", "__MSG_sonar.gadget.all.projects__"));
-							}
+						if (args.measureData.length == 1) {
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", args.measureData[0].name));
+						} else {
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", "__MSG_sonar.gadget.all.projects__"));
 						}
 						var dimensions = {
 							width: (gadget.getView().width() - 20),
