@@ -26,9 +26,6 @@
 
 	<!-- W E B   R E S O U R C E S -->
 	<web-resource key="jquery-plugins" name="Treemap plugin for jQuery">
-		<resource type="download" name="treemap-min.js" location="scripts/jQuery/treemap-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
 		<resource type="download" name="jquery.bgiframe-min.js" location="scripts/jQuery/jquery.bgiframe-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -39,7 +36,12 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
-	<web-resource key="sonar-js" name="Common Sonar Web Resources">
+	<web-resource key="jquery-treemap" name="Treemap plugin for jQuery">
+		<resource type="download" name="treemap-min.js" location="scripts/jQuery/treemap-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="sonar-common-js" name="Common Sonar Web Resources">
 		<dependency>${atlassian.plugin.key}:jquery-plugins</dependency>
 		<resource type="download" name="sonar-i18n-min.js" location="scripts/sonar-i18n-min.js">
 			<property key="content-type" value="text/javascript"/>
@@ -50,21 +52,41 @@
 		<resource type="download" name="sonar-accessor-min.js" location="scripts/sonar-accessor-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
-		<resource type="download" name="sonar-views-min.js" location="scripts/sonar-views-min.js">
+		<resource type="download" name="sonar-views-min.js" location="scripts/views/sonar-views-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
-	<web-resource key="sonar-common" name="Common Sonar Web Resources">
-		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
+	<web-resource key="sonar-all-js" name="All Sonar Web Resources">
+		<dependency>${atlassian.plugin.key}:sonar-common-js</dependency>
 		<dependency>${atlassian.plugin.key}:sonar-css</dependency>
-		<dependency>${atlassian.plugin.key}:sonar-js</dependency>
+		<resource type="download" name="sonar-comments-view-min.js" location="scripts/views/sonar-comments-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-complexity-view-min.js" location="scripts/views/sonar-complexity-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-coverage-view-min.js" location="scripts/views/sonar-coverage-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-loc-view-min.js" location="scripts/views/sonar-loc-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<dependency>${atlassian.plugin.key}:jquery-treemap</dependency>
+		<resource type="download" name="sonar-treemap-view-min.js" location="scripts/views/sonar-treemap-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-violations-view-min.js" location="scripts/views/sonar-violations-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 	</web-resource>
 	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
 		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
 		<resource type="download" name="sonar-views-min.css" location="styles/sonar-views-min.css" />
 	</web-resource>
 	<web-resource key="gadget-common" name="Common Gadget Web Resources">
-		<dependency>${atlassian.plugin.key}:sonar-common</dependency>
+		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
+		<dependency>${atlassian.plugin.key}:sonar-common-js</dependency>
+		<dependency>${atlassian.plugin.key}:sonar-css</dependency>
 		<resource type="download" name="gadget-utils-min.js" location="scripts/gadget-utils-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -75,6 +97,43 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 		<resource type="download" name="gadget-sonar-accessor-min.js" location="scripts/gadget-sonar-accessor-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="comments-gadget-js" name="Comments Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-comments-view-min.js" location="scripts/views/sonar-comments-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="complexity-gadget-js" name="Complexity Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-complexity-view-min.js" location="scripts/views/sonar-complexity-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="coverage-gadget-js" name="Coverage Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-coverage-view-min.js" location="scripts/views/sonar-coverage-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="loc-gadget-js" name="LoC Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-loc-view-min.js" location="scripts/views/sonar-loc-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="treemap-gadget-js" name="Treemap Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<dependency>${atlassian.plugin.key}:jquery-treemap</dependency>
+		<resource type="download" name="sonar-treemap-view-min.js" location="scripts/views/sonar-treemap-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
+	<web-resource key="violations-gadget-js" name="Violations Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-violations-view-min.js" location="scripts/views/sonar-violations-view-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>

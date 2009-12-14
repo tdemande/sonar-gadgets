@@ -49,7 +49,7 @@
 	<UserPref name="titleRequired" datatype="hidden" default_value="true" />
 	<Content type="html">
 		<![CDATA[
-		#requireResource("${atlassian.plugin.key}:gadget-common")
+		#requireResource("${atlassian.plugin.key}:coverage-gadget-js")
         #includeResources()
 		<script type="text/javascript">
 		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
@@ -85,7 +85,7 @@
 							var measureData = args.measureData[0];
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.coverage.project.title__", measureData.name));
 							gadget.getView().append(
-								AJS.sonar.views.generateCoverageView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
+								AJS.sonar.views.coverage.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
 							);
 						}
 					},
