@@ -94,7 +94,7 @@
 						ajaxOptions: function () {
 							var gadget = this;
 							return {
-								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.accessor.COVERAGE_METRICS)
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.views.coverage.METRICS)
 							};
 						}
 					}, {

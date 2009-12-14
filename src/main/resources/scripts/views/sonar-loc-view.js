@@ -21,6 +21,8 @@ AJS.$.namespace("AJS.sonar.views.loc");
 
 AJS.sonar.views.loc.VIEW_NAME = "loc";
 
+AJS.sonar.views.loc.METRICS = 'ncloc,lines,classes,packages,functions,accessors';
+
 /**
  * Generate the Sonar LOC view
  * 

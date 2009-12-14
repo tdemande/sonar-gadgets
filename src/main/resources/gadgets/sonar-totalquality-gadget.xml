@@ -18,12 +18,12 @@
  ~ under the License.
  -->
 <Module>
-	<ModulePrefs title="__MSG_sonar.gadget.violations.title__" directory_title="__MSG_sonar.gadget.violations.title__"
-				 description="__MSG_sonar.gadget.violations.description__"
+	<ModulePrefs title="__MSG_sonar.gadget.totalquality.title__" directory_title="__MSG_sonar.gadget.totalquality.title__"
+				 description="__MSG_sonar.gadget.totalquality.description__"
 				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
-				 author_location="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
-				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-violations-gadget", "sonar-violations-screenshot.png")'
-				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-violations-gadget", "sonar-violations-thumb.png")'>
+				 author_totalqualityation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
+				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-totalquality-gadget", "sonar-totalquality-screenshot.png")'
+				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-totalquality-gadget", "sonar-totalquality-thumb.png")'>
 		<Optional feature="gadget-directory">
 			<Param name="categories">
 				JIRA
@@ -48,7 +48,7 @@
 	<UserPref name="titleRequired" datatype="hidden" default_value="true" />
 	<Content type="html">
 		<![CDATA[
-		#requireResource("${atlassian.plugin.key}:violations-gadget-js")
+		#requireResource("${atlassian.plugin.key}:totalquality-gadget-js")
         #includeResources()
 		<script type="text/javascript">
 		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
@@ -58,7 +58,7 @@
 				config: {
 					descriptor: function (args) {
 						var gadget = this;
-						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.violations.title__");
+						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.totalquality.title__");
 						return  {
 							action : "",
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
@@ -74,7 +74,7 @@
 						var gadget = this;
 						gadget.getView().empty();
 						if (!args.measureData[0]) {
-							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.violations.title__");
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.totalquality.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
@@ -82,9 +82,9 @@
 							);
 						} else {
 							var measureData = args.measureData[0];
-							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", measureData.name));
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.totalquality.project.title__", measureData.name));
 							gadget.getView().append(
-								AJS.sonar.views.violations.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
+								AJS.sonar.views.totalquality.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
 							);
 						}
 					},
@@ -93,7 +93,7 @@
 						ajaxOptions: function () {
 							var gadget = this;
 							return {
-								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.views.violations.METRICS)
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.views.totalquality.METRICS)
 							};
 						}
 					}, {

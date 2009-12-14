@@ -21,6 +21,8 @@ AJS.$.namespace("AJS.sonar.views.comments");
 
 AJS.sonar.views.comments.VIEW_NAME = "comments";
 
+AJS.sonar.views.comments.METRICS = 'comment_lines_density,comment_lines,public_documented_api_density,public_undocumented_api,commented_out_code_lines,duplicated_lines_density,duplicated_lines,duplicated_blocks,duplicated_files';
+
 /**
  * Generate the Sonar Comments view
  * 

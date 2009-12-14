@@ -21,6 +21,8 @@ AJS.$.namespace("AJS.sonar.views.coverage");
 
 AJS.sonar.views.coverage.VIEW_NAME = "coverage";
 
+AJS.sonar.views.coverage.METRICS = 'coverage_line_hits_data,tests,test_execution_time,test_errors,skipped_tests,test_failures,test_success_density,coverage,line_coverage,branch_coverage';
+
 /**
  * Generate the Sonar Coverage view
  * 

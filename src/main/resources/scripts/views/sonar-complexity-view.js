@@ -21,6 +21,8 @@ AJS.$.namespace("AJS.sonar.views.complexity");
 
 AJS.sonar.views.complexity.VIEW_NAME = "complexity";
 
+AJS.sonar.views.complexity.METRICS = 'function_complexity,class_complexity,complexity,statements,function_complexity_distribution,class_complexity_distribution';
+
 /**
  * Generate the Sonar Complexity view
  * 
