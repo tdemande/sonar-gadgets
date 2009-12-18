@@ -78,6 +78,12 @@
 		<resource type="download" name="sonar-violations-view-min.js" location="scripts/views/sonar-violations-view-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+		<resource type="download" name="sonar-totalquality-view-min.js" location="scripts/views/sonar-totalquality-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+		<resource type="download" name="sonar-technicaldept-view-min.js" location="scripts/views/sonar-technicaldept-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 	</web-resource>
 	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
 		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
@@ -143,6 +149,12 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="technicaldept-gadget-js" name="Tchnical Dept Gadget Web Resources">
+		<dependency>${atlassian.plugin.key}:gadget-common</dependency>
+		<resource type="download" name="sonar-technicaldept-view-min.js" location="scripts/views/sonar-technicaldept-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
@@ -157,6 +169,7 @@
 	<gadget key="sonar-treemap-gadget" name="Sonar Treemap" location="gadgets/sonar-treemap-gadget.xml" />
 	<gadget key="sonar-violations-gadget" name="Sonar Violations" location="gadgets/sonar-violations-gadget.xml" />
 	<gadget key="sonar-totalquality-gadget" name="Sonar Total Quality" location="gadgets/sonar-totalquality-gadget.xml" />
+	<gadget key="sonar-technicaldept-gadget" name="Sonar Techincal Dept" location="gadgets/sonar-technicaldept-gadget.xml" />
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -174,6 +187,8 @@
 	<resource type="download" name="sonar-treemap-thumb.png" location="images/gadgets/sonar-treemap-thumb.png"/>
 	<resource type="download" name="sonar-totalquality-screenshot.png" location="images/gadgets/sonar-totalquality-screenshot.png"/>
 	<resource type="download" name="sonar-totalquality-thumb.png" location="images/gadgets/sonar-totalquality-thumb.png"/>
+	<resource type="download" name="sonar-technicaldept-screenshot.png" location="images/gadgets/sonar-technicaldept-screenshot.png"/>
+	<resource type="download" name="sonar-technicaldept-thumb.png" location="images/gadgets/sonar-technicaldept-thumb.png"/>
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />

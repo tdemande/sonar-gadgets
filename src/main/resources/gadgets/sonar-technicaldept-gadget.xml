@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ ~ Licensed to Marvelution under one or more contributor license 
+ ~ agreements.  See the NOTICE file distributed with this work 
+ ~ for additional information regarding copyright ownership.
+ ~ Marvelution licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~  http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied. See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+ -->
+<Module>
+	<ModulePrefs title="__MSG_sonar.gadget.technicaldept.title__" directory_title="__MSG_sonar.gadget.technicaldept.title__"
+				 description="__MSG_sonar.gadget.technicaldept.description__"
+				 author="Marvelution" author_email="info@marvelution.com" author_affiliation="Marvelution"
+				 author_technicaldeptation="Beverwijk, The Netherlands" title_url="http://www.marvelution.com/" height="100"
+				 screenshot='#staticResourceUrl("${atlassian.plugin.key}:sonar-technicaldept-gadget", "sonar-technicaldept-screenshot.png")'
+				 thumbnail='#staticResourceUrl("${atlassian.plugin.key}:sonar-technicaldept-gadget", "sonar-technicaldept-thumb.png")'>
+		<Optional feature="gadget-directory">
+			<Param name="categories">
+				JIRA
+				Sonar
+				External Content
+				Other
+			</Param>
+		</Optional>
+        <Require feature="setprefs"/>
+        <Require feature="settitle"/>
+        <Require feature="dynamic-height"/>
+        <Require feature="views" />
+        <Optional feature="atlassian.util" />
+        <Require feature="oauthpopup"/>
+		#oauth
+		#supportedLocales("gadget.common,sonar.views,sonar.gadget,sonar.error")
+	</ModulePrefs>
+	<UserPref name="sonarServer" datatype="hidden" default_value="" />
+	<UserPref name="sonarProject" datatype="hidden" default_value="" />
+	<UserPref name="refresh" datatype="hidden" default_value="false" />
+	<UserPref name="isConfigured" datatype="hidden" default_value="false" />
+	<UserPref name="titleRequired" datatype="hidden" default_value="true" />
+	<Content type="html">
+		<![CDATA[
+		#requireResource("${atlassian.plugin.key}:technicaldept-gadget-js")
+        #includeResources()
+		<script type="text/javascript">
+		var WAIT_IMAGE_SRC = "__ATLASSIAN_BASE_URL__" + "/download/resources/${atlassian.plugin.key}/images/wait.gif";
+		(function () {
+			AJS.Gadget({
+				baseUrl: "__ATLASSIAN_BASE_URL__",
+				config: {
+					descriptor: function (args) {
+						var gadget = this;
+						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
+						return  {
+							action : "",
+							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", null)
+						};
+					},
+					args: []
+				},
+				view: {
+					enableReload: true,
+					onResizeReload: true,
+					template: function (args) {
+						var gadget = this;
+						gadget.getView().empty();
+						if (!args.measureData[0]) {
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
+							gadget.getView().append(
+								AJS.sonar.utils.generateErrorMessageBox([
+									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
+								])
+							);
+						} else {
+							var measureData = args.measureData[0];
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.technicaldept.project.title__", measureData.name));
+							gadget.getView().append(
+								AJS.sonar.views.technicaldept.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
+							);
+						}
+					},
+					args: [{
+						key: "measureData",
+						ajaxOptions: function () {
+							var gadget = this;
+							return {
+								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.views.technicaldept.METRICS)
+							};
+						}
+					}, {
+						key: "metricsDetails",
+						ajaxOptions: function () {
+							var gadget = this;
+							return {
+								url: AJS.sonar.accessor.generateServerMetricsApiUrl(gadget.getPref("sonarServer"))
+							};
+						}
+					}]
+				}
+			});
+		})();
+		</script>
+		]]>
+	</Content>
+</Module>
