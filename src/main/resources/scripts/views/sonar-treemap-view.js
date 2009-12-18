@@ -90,7 +90,7 @@ AJS.sonar.views.treemap.populateTreemap = function(treemapContainer, serverUrl, 
 	}
 	AJS.$.ajax({
 		type: "GET",
-		dataType: AJS.sonar.views.JSON_TYPE,
+		dataType: AJS.sonar.accessor.JSON_FORMAT,
 		cache: false,
 		url: url,
 		success: function(resourceData) {

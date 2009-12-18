@@ -29,8 +29,6 @@ AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS = {
 		violations_density: "highlight=weighted_violations&amp;metric=weighted_violations"
 };
 
-AJS.sonar.views.JSON_TYPE = "json";
-
 /**
  * Create the common View container div element
  * 
