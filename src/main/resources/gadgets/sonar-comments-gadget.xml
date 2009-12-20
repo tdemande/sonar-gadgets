@@ -73,18 +73,19 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
+						var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
 						if (!args.measureData[0]) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.comments.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
-									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), gadget.getPref("sonarServer"))
+									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
 								])
 							);
 						} else {
 							var measureData = args.measureData[0];
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.comments.project.title__", measureData.name));
 							gadget.getView().append(
-								AJS.sonar.views.comments.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), measureData, args.metricsDetails)
+								AJS.sonar.views.comments.generateView(gadget.getBaseUrl(), sonarServer, measureData, args.metricsDetails)
 							);
 						}
 					},
@@ -92,17 +93,15 @@
 						key: "measureData",
 						ajaxOptions: function () {
 							var gadget = this;
-							return {
-								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), AJS.sonar.views.comments.METRICS)
-							};
+							var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
+							return AJS.sonar.accessor.getAjaxOptions(sonarServer, AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarProject"), AJS.sonar.views.comments.METRICS));
 						}
 					}, {
 						key: "metricsDetails",
 						ajaxOptions: function () {
 							var gadget = this;
-							return {
-								url: AJS.sonar.accessor.generateServerMetricsApiUrl(gadget.getPref("sonarServer"))
-							};
+							var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
+							return AJS.sonar.accessor.getAjaxOptions(sonarServer, AJS.sonar.accessor.generateServerMetricsApiUrl());
 						}
 					}]
 				}

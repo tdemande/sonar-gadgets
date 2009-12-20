@@ -27,7 +27,7 @@ AJS.sonar.views.treemap.DEFAULT_TREEMAP_DIMENSIONS = {width: 300, height: 300};
  * Generate the Treemap view
  * 
  * @param baseUrl the base url of the server hosting the treemap
- * @param serverUrl te base url of the Sonar server
+ * @param server the Sonar server Object
  * @param resourceKey the base resource key, may be null
  * @param metricsDetails array with details of all the available metrics on the Sonar server
  * @param sizeMetric the metric used for treemap cell sizing
@@ -36,7 +36,7 @@ AJS.sonar.views.treemap.DEFAULT_TREEMAP_DIMENSIONS = {width: 300, height: 300};
  * @param onChangeCallback function to be called when size or color metrics change
  * @return the treemap view
  */
-AJS.sonar.views.treemap.generateView = function(baseUrl, serverUrl, resourceKey, metricsDetails, sizeMetricKey, colorMetricKey, dimensions, onChangeCallback) {
+AJS.sonar.views.treemap.generateView = function(baseUrl, server, resourceKey, metricsDetails, sizeMetricKey, colorMetricKey, dimensions, onChangeCallback) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, sizeMetricKey);
@@ -52,7 +52,7 @@ AJS.sonar.views.treemap.generateView = function(baseUrl, serverUrl, resourceKey,
 		AJS.$("#treemap-loading").show();
 		var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, AJS.$("#sizeSelect").val());
 		var colorMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, AJS.$("#colorSelect").val());
-		AJS.sonar.views.treemap.populateTreemap(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
+		AJS.sonar.views.treemap.populateTreemap(treemapContainer, server, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
 		if (onChangeCallback != null) {
 			try {
 				onChangeCallback(sizeMetric, colorMetric);
@@ -66,8 +66,8 @@ AJS.sonar.views.treemap.generateView = function(baseUrl, serverUrl, resourceKey,
 	AJS.sonar.utils.createMetricSelectElement("colorMetric", "colorSelect", AJS.sonar.utils.getColorMetrics(metricsDetails), colorMetric.key,
 			onChange).appendTo(header);
 	AJS.$("<img/>").attr({id: "treemap-loading", src: WAIT_IMAGE_SRC}).appendTo(header);
-	AJS.sonar.views.treemap.populateTreemap(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
-	AJS.sonar.views.addViewFooter(view, serverUrl);
+	AJS.sonar.views.treemap.populateTreemap(treemapContainer, server, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions);
+	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
 }
 
@@ -75,25 +75,20 @@ AJS.sonar.views.treemap.generateView = function(baseUrl, serverUrl, resourceKey,
  * Populate the treemap container object with the actual treemap
  * 
  * @param treemapContainer the jQuery wrapped object that will contain the treemap
- * @param serverUrl the base url of the Sonar Server
+ * @param server the Sonar Server Object
  * @param resourceKey the base resource key, may be null
  * @param metricsDetails array with details of all the available metrics on the Sonar server
  * @param sizeMetric the metric used for treemap cell sizing
  * @param colorMetric the metric used for treemap cell background coloring
  * @param dimensions the dimensions object with the width and height for the treemap
  */
-AJS.sonar.views.treemap.populateTreemap = function(treemapContainer, serverUrl, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions) {
+AJS.sonar.views.treemap.populateTreemap = function(treemapContainer, server, resourceKey, metricsDetails, sizeMetric, colorMetric, dimensions) {
 	var resources = [];
-	var url = AJS.sonar.accessor.generateApiUrl(serverUrl, resourceKey, sizeMetric.key + "," + colorMetric.key);
+	var url = AJS.sonar.accessor.generateApiUrl(resourceKey, sizeMetric.key + "," + colorMetric.key);
 	if (resourceKey != "") {
 		url += "&depth=-1&scopes=PRJ,DIR";
 	}
-	AJS.$.ajax({
-		type: "GET",
-		dataType: AJS.sonar.accessor.JSON_FORMAT,
-		cache: false,
-		url: url,
-		success: function(resourceData) {
+	var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(server, url, function(resourceData) {
 			treemapContainer.empty();
 			if (resourceData.length == 0) {
 				AJS.$("<div/>").addClass("center-div").text(AJS.sonar.text.getMsg("sonar.views.treemap.no.data")).appendTo(treemapContainer);
@@ -160,7 +155,7 @@ AJS.sonar.views.treemap.populateTreemap = function(treemapContainer, serverUrl, 
 				AJS.$(resources).each(function(index, resource) {
 					var cell = AJS.$("#" + resource.id);
 					cell.click(function(event) {
-						parent.location.href = serverUrl + "/project/index/" + resource.id;
+						parent.location.href = server.host + "/project/index/" + resource.id;
 					});
 					cell.tooltip({
 						delay: 0,
@@ -185,14 +180,14 @@ AJS.sonar.views.treemap.populateTreemap = function(treemapContainer, serverUrl, 
 				});
 			}
 			AJS.$("#treemap-loading").hide();
-		},
-		error: function(request, textStatus) {
+		}, function(request, textStatus) {
 			treemapContainer.empty();
 			AJS.$("<div/>").addClass("center-div").text(
 				AJS.sonar.text.getMsg("sonar.views.treemap.failed.to.get.data")
 			).appendTo(treemapContainer);
 		}
-	});
+	);
+	AJS.$.ajax(ajaxOptions);
 }
 
 /**

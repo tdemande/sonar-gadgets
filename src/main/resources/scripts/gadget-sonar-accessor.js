@@ -34,11 +34,8 @@ AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget,
 	projectSelector.css("display", "none");
 	waitImage.css("display", "block");
 	gadget.resize();
-	AJS.$.ajax({
-		url: AJS.sonar.accessor.generateServerResourceApiUrl(serverUrl),
-		type: "GET",
-		dataType: "json",
-		success: function(data) {
+	var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), serverUrl),
+		AJS.sonar.accessor.generateServerResourceApiUrl(), function(data) {
 			if (addAllProjectsOption !== null && addAllProjectsOption.value !== undefined && addAllProjectsOption.label !== undefined) {
 				projectSelector.append(
 					AJS.$("<option/>").attr({
@@ -59,5 +56,6 @@ AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget,
 			projectSelector.css("display", "block");
 			gadget.resize();
 		}
-	});
+	);
+	AJS.$.ajax(ajaxOptions);
 }

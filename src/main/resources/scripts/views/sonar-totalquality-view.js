@@ -59,57 +59,57 @@ AJS.sonar.views.totalquality.CHART_METRICS = [{
  * Generate the Sonar Total Quality view
  * 
  * @param baseUrl the base url of the system displaying the view
- * @param serverUrl the base url of the Sonar server
+ * @param server the Sonar server object
  * @param measureData the measure data of a project on Sonar
  * @param metricsDetails the details of the coverage measures
  * @return the jQuery wrapped view object
  */
-AJS.sonar.views.totalquality.generateView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+AJS.sonar.views.totalquality.generateView = function(baseUrl, server, measureData, metricsDetails) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var leftView = AJS.sonar.views.createColumn(true);
 	leftView.css('width', '38%');
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.totalquality"));
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_tq"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_tq"), true).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "coverage"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "coverage"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_architecture"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_architecture"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_design"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_design"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_code"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_code"), false).appendTo(leftView);
 	leftView.append(AJS.$("<br />"));
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.totalquality.distance"));
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_d"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_d"), true).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_tc"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_tc"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_ac"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_ac"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_cc"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_cc"), false).appendTo(leftView);
 	leftView.append(AJS.$("<br />"));
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.totalquality.cycles"));
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.totalquality.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "isoqa_dc"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_dc"), true).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.sonar.views.createColumn(false);
 	rightView.css('width', '58%');
-	AJS.sonar.views.totalquality.generateTotalQualityChart(serverUrl, measureData, metricsDetails).appendTo(rightView);
+	AJS.sonar.views.totalquality.generateTotalQualityChart(server.host, measureData, metricsDetails).appendTo(rightView);
 	rightView.appendTo(view);
-	AJS.sonar.views.addViewFooter(view, serverUrl);
+	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
 }
 

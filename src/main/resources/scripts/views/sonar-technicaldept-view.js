@@ -27,33 +27,33 @@ AJS.sonar.views.technicaldept.METRICS = 'technical_debt_repart,technical_debt_da
  * Generate the Sonar Technical Dept view
  * 
  * @param baseUrl the base url of the system displaying the view
- * @param serverUrl the base url of the Sonar server
+ * @param server the Sonar server object
  * @param measureData the measure data of a project on Sonar
  * @param metricsDetails the details of the coverage measures
  * @return the jQuery wrapped view object
  */
-AJS.sonar.views.technicaldept.generateView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+AJS.sonar.views.technicaldept.generateView = function(baseUrl, server, measureData, metricsDetails) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var leftView = AJS.sonar.views.createColumn(true);
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.technicaldept"));
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "technical_debt_ratio"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "technical_debt_ratio"), true).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "technical_debt"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "technical_debt"), false
 	).prepend(AJS.$("<span/>").text("$ ")).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.technicaldept.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "technical_debt_days"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "technical_debt_days"), false).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.sonar.views.createColumn(false);
-	AJS.sonar.views.technicaldept.createTechnicaldeptChart(serverUrl, 
+	AJS.sonar.views.technicaldept.createTechnicaldeptChart(server.host, 
 			AJS.sonar.utils.getMeasureFromResource(measureData, "technical_debt_repart")
 	).appendTo(rightView);
 	rightView.appendTo(view);
-	AJS.sonar.views.addViewFooter(view, serverUrl);
+	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
 }
 

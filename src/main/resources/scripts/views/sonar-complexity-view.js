@@ -27,44 +27,44 @@ AJS.sonar.views.complexity.METRICS = 'function_complexity,class_complexity,compl
  * Generate the Sonar Complexity view
  * 
  * @param baseUrl the base url of the system displaying the view
- * @param serverUrl the base url of the Sonar server
+ * @param server the Sonar server object
  * @param measureData the measure data of a project on Sonar
  * @param metricsDetails the details of the complexity measures
  * @return the jQuery wrapped view object
  */
-AJS.sonar.views.complexity.generateView = function(baseUrl, serverUrl, measureData, metricsDetails) {
+AJS.sonar.views.complexity.generateView = function(baseUrl, server, measureData, metricsDetails) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var leftView = AJS.$("<div/>").attr({id: "leftColumn"}).addClass("left-column-onethird");
 	leftView.append(AJS.sonar.views.createHeader("sonar.views.complexity"));
-	AJS.sonar.views.complexity.createComplexityRow(serverUrl, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
+	AJS.sonar.views.complexity.createComplexityRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "function_complexity"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "function_complexity"), false).appendTo(leftView);
-	AJS.sonar.views.complexity.createComplexityRow(serverUrl, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
+	AJS.sonar.views.complexity.createComplexityRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "class_complexity"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "class_complexity"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "complexity"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "complexity"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(serverUrl, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "statements"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "statements"), false).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.$("<div/>").attr({id: "rightColumn"}).addClass("right-column-twothird");
 	var tabsContainer = AJS.$("<div/>").attr({id: "tabs"});
 	var chartsContainer = AJS.$("<div/>").attr({id: "charts"});
-	AJS.sonar.views.complexity.addComplexityChart(serverUrl, tabsContainer, chartsContainer,
+	AJS.sonar.views.complexity.addComplexityChart(server.host, tabsContainer, chartsContainer,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "function_complexity_distribution"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "function_complexity_distribution"), true
 	);
-	AJS.sonar.views.complexity.addComplexityChart(serverUrl, tabsContainer, chartsContainer,
+	AJS.sonar.views.complexity.addComplexityChart(server.host, tabsContainer, chartsContainer,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "class_complexity_distribution"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "class_complexity_distribution"), false
 	);
 	tabsContainer.appendTo(rightView);
 	chartsContainer.appendTo(rightView);
 	rightView.appendTo(view);
-	AJS.sonar.views.addViewFooter(view, serverUrl);
+	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
 }
 

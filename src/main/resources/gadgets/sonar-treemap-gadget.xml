@@ -77,6 +77,7 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
+						var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
 						if (args.measureData.length == 1) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", args.measureData[0].name));
 						} else {
@@ -91,7 +92,7 @@
 							gadget.savePref("colorMetric", colorMetric.key);
 						};
 						gadget.getView().append(
-							AJS.sonar.views.treemap.generateView(gadget.getBaseUrl(), gadget.getPref("sonarServer"), gadget.getPref("sonarProject"),
+							AJS.sonar.views.treemap.generateView(gadget.getBaseUrl(), sonarServer, gadget.getPref("sonarProject"),
 																args.metricsDetails, gadget.getPref("sizeMetric"), gadget.getPref("colorMetric"),
 																dimensions, onChangeCallback)
 						);
@@ -101,17 +102,15 @@
 						key: "measureData",
 						ajaxOptions: function () {
 							var gadget = this;
-							return {
-								url: AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarServer"), gadget.getPref("sonarProject"), "")
-							};
+							var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
+							return AJS.sonar.accessor.getAjaxOptions(sonarServer, AJS.sonar.accessor.generateApiUrl(gadget.getPref("sonarProject"), ""));
 						}
 					}, {
 						key: "metricsDetails",
 						ajaxOptions: function () {
 							var gadget = this;
-							return {
-								url: AJS.sonar.accessor.generateServerMetricsApiUrl(gadget.getPref("sonarServer"))
-							};
+							var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
+							return AJS.sonar.accessor.getAjaxOptions(sonarServer, AJS.sonar.accessor.generateServerMetricsApiUrl());
 						}
 					}]
 				}
