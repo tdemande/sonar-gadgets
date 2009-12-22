@@ -53,13 +53,12 @@ AJS.sonar.utils.getTrendImage = function(measure, isSmall) {
  * @return the Measure of the resource
  */
 AJS.sonar.utils.getMeasureFromResource = function(resource, msrKey) {
-	var msr = {};
 	for (var index in resource.msr) {
 		if (resource.msr[index].key === msrKey) {
 			return resource.msr[index];
 		}
 	}
-	return msr;
+	return null;
 }
 
 /**
@@ -70,13 +69,12 @@ AJS.sonar.utils.getMeasureFromResource = function(resource, msrKey) {
  * @return the metric
  */
 AJS.sonar.utils.getMetricFromMetricsArray = function(metrics, metricKey) {
-	var metric = {};
 	for (var index in metrics) {
 		if (metrics[index].key === metricKey) {
 			return metrics[index];
 		}
 	}
-	return metric;
+	return null;
 }
 
 /**

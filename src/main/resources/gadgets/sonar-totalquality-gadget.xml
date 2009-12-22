@@ -74,11 +74,19 @@
 						var gadget = this;
 						gadget.getView().empty();
 						var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
+						var requiredmetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "isoqa_tq");
 						if (!args.measureData[0]) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.totalquality.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
+								])
+							);
+						} else if (requiredMetric == null || requiredMetric === undefined) {
+							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.totalquality.title__");
+							gadget.getView().append(
+								AJS.sonar.utils.generateErrorMessageBox([
+									AJS.format("__MSG_sonar.error.plugin.not.installed.on.server__", "__MSG_sonar.error.plugin.totalquality__", sonarServer.host)
 								])
 							);
 						} else {
