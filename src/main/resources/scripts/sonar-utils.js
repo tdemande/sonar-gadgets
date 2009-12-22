@@ -58,7 +58,7 @@ AJS.sonar.utils.getMeasureFromResource = function(resource, msrKey) {
 			return resource.msr[index];
 		}
 	}
-	return null;
+	return {};
 }
 
 /**
@@ -74,7 +74,27 @@ AJS.sonar.utils.getMetricFromMetricsArray = function(metrics, metricKey) {
 			return metrics[index];
 		}
 	}
-	return null;
+	return {};
+}
+
+/**
+ * Validate a Metric to see if its a valid one
+ * 
+ * @param metric the Metric to validate
+ * @return <code>true</code> if valid, <code>false</code> otherwise
+ */
+AJS.sonar.utils.isValidMetric = function(metric) {
+	return !(metric != null && metric !== undefined && metric.key !== undefined);
+}
+
+/**
+ * Validate a Measure to see if its a valid one
+ * 
+ * @param measure the Measure to validate
+ * @return <code>true</code> if valid, <code>false</code> otherwise
+ */
+AJS.sonar.utils.isValidMeasure = function(measure) {
+	return !(measure != null && measure !== undefined && measure.key !== undefined);
 }
 
 /**

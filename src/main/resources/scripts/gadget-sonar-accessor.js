@@ -30,6 +30,8 @@ AJS.$.namespace("AJS.gadget.sonar.accessor");
  */
 AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget, serverUrl, projectSelector, selectedKey, addAllProjectsOption) {
 	var waitImage = AJS.$("#waitingImage");
+	var error = AJS.$("<span/>").attr({id: 'error_msg'});
+	waitImage.parent().prepend(error);
 	projectSelector.empty();
 	projectSelector.css("display", "none");
 	waitImage.css("display", "block");
@@ -52,9 +54,15 @@ AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget,
 					}).text(this.name)
 				);
 			});
+			error.css("display", "none");
 			waitImage.css("display", "none");
 			projectSelector.css("display", "block");
 			gadget.resize();
+		}, function() {
+			waitImage.css("display", "none");
+			projectSelector.css("display", "none");
+			error.css("display", "block");
+			error.empty().append(AJS.format(gadget.getMsg("sonar.error.failed.to.connect"), serverUrl));
 		}
 	);
 	AJS.$.ajax(ajaxOptions);

@@ -55,3 +55,8 @@ img.waiting-image {
 #tooltip h3, #tooltip div {
 	margin: 0;
 }
+
+#error_msg {
+	color: #F93F40;
+	font-weight: bold;
+}

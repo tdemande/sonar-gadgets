@@ -47,9 +47,6 @@ AJS.sonar.views.comments.generateView = function(baseUrl, server, measureData, m
 			AJS.sonar.utils.getMeasureFromResource(measureData, "public_documented_api_density"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "public_documented_api_density"), false).appendTo(leftView);
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.comments.VIEW_NAME, measureData.id,
-			AJS.sonar.utils.getMeasureFromResource(measureData, "public_undocumented_api"),
-			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "public_undocumented_api"), false).appendTo(leftView);
-	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.comments.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "commented_out_code_lines"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "commented_out_code_lines"), false).appendTo(leftView);
 	leftView.appendTo(view);

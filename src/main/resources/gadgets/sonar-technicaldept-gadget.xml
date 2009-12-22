@@ -74,7 +74,6 @@
 						var gadget = this;
 						gadget.getView().empty();
 						var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
-						var requiredmetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "technical_debt");
 						if (!args.measureData[0]) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
 							gadget.getView().append(
@@ -82,7 +81,7 @@
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
 								])
 							);
-						} else if (requiredMetric == null || requiredMetric === undefined) {
+						} else if (AJS.sonar.utils.isValidMetric(AJS.sonar.utils.getMetricFromMetricsArray(args.metricsDetails, "technical_debt"))) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox([
