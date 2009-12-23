@@ -84,8 +84,8 @@
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", "__MSG_sonar.gadget.all.projects__"));
 						}
 						var dimensions = {
-							width: (gadget.getView().width() - 20),
-							height: (gadget.getView().width() - 20)
+							width: (gadget.getView().parent().width() - 20),
+							height: (gadget.getView().parent().width() - 20)
 						};
 						var onChangeCallback = function(sizeMetric, colorMetric) {
 							gadget.savePref("sizeMetric", sizeMetric.key);

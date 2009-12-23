@@ -42,6 +42,12 @@ AJS.sonar.views.treemap.generateView = function(baseUrl, server, resourceKey, me
 	var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, sizeMetricKey);
 	var colorMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, colorMetricKey);
 	if (dimensions == null || dimensions.width == undefined || dimensions.height == undefined) {
+		dimensions = {
+			width: 0,
+			hieght: 0
+		};
+	}
+	if (dimensions.width < 1 || dimensions.height < 1) {
 		dimensions = AJS.sonar.views.treemap.DEFAULT_TREEMAP_DIMENSIONS;
 	}
 	var header = AJS.$("<div/>").addClass("treemap-header");
