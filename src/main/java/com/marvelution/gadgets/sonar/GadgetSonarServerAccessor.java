@@ -52,9 +52,13 @@ public class GadgetSonarServerAccessor extends DefaultSonarServerAccessor {
 	 */
 	public void invokeSonarServer(HttpServletRequest req, HttpServletResponse resp)
 			throws SonarServerAccessorException, IOException {
-		final String[] url = StringUtils.split(getUrlFromRequest(req), '?');
+		final String[] url = StringUtils.split(getUrlFromRequest(req), "?", 2);
+		String queryString = "";
+		if (url.length > 1) {
+			queryString = url[1];
+		}
 		final String output = getSonarServerActionResponse(getSonarServerFromRequest(req), url[0],
-			createQueryStringMap(url[1]));
+			createQueryStringMap(queryString));
 		resp.setHeader("Pragma", "no-cache");
 		resp.setHeader("Cache-Control", "no-cache");
 		resp.setStatus(HttpServletResponse.SC_OK);
