@@ -77,6 +77,7 @@
 					template: function (args) {
 						var gadget = this;
 						gadget.getView().empty();
+						AJS.sonar.text.getMsgCallBack = gadget.getMsg;
 						var sonarServer = AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), gadget.getPref("sonarServer"));
 						if (args.measureData.length == 1) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.violations.project.title__", args.measureData[0].name));

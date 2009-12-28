@@ -21,7 +21,9 @@ AJS.$.namespace("AJS.sonar.text");
 
 AJS.sonar.text.loaded = false;
 
-AJS.sonar.text.msgStore = [];
+AJS.sonar.text.msgStore = {};
+
+AJS.sonar.text.getMsgCallBack = null;
 
 /**
  * Get a i18n String for a key given
@@ -30,10 +32,10 @@ AJS.sonar.text.msgStore = [];
  * @return the message string, may be the key if the key is not found
  */
 AJS.sonar.text.getMsg = function(msgKey) {
-	for (var index in AJS.sonar.text.msgStore) {
-		if (AJS.sonar.text.msgStore[index].key === msgKey) {
-			return AJS.sonar.text.msgStore[index].value;
-		}
+	if (AJS.sonar.text.getMsgCallBack != null) {
+		return AJS.sonar.text.getMsgCallBack(msgKey);
+	} else if (AJS.sonar.text.msgStore[msgKey] !== undefined && AJS.sonar.text.msgStore[msgKey] != null) {
+		return AJS.sonar.text.msgStore[msgKey].value;
 	}
 	return msgKey;
 }
@@ -44,14 +46,16 @@ AJS.sonar.text.getMsg = function(msgKey) {
  * @param baseUrl the base url of the system hosting the i18n keys
  */
 AJS.sonar.text.load = function(baseUrl) {
-	 if (!AJS.sonar.text.loaded) {
+	 if (AJS.sonar.text.getMsgCallBack == null && !AJS.sonar.text.loaded) {
 		AJS.$.ajax({
 			url: baseUrl + "/rest/sonar/1.0/i18n",
 			async: false,
 			type: "GET",
 			dataType: "json",
 			success: function(data) {
-				AJS.sonar.text.msgStore = data.entries;
+				AJS.$(data.entries).each(function() {
+					AJS.sonar.text.msgStore[this.key] = this.value;
+				});
 				AJS.sonar.text.loaded = true;
 			}
 		});
