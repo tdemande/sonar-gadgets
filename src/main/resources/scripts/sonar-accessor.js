@@ -23,6 +23,8 @@ AJS.sonar.accessor.JSON_FORMAT = "json";
 
 AJS.sonar.accessor.FORCE_SERVLET_QUERY = false;
 
+AJS.sonar.accessor.PARSE_JSON_RESPONSES = false;
+
 /**
  * Generate the Resource API url for a server
  * 
@@ -72,9 +74,6 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 		type: "GET",
 		dataTpe: AJS.sonar.accessor.JSON_FORMAT
 	};
-	if (successHandler !== undefined) {
-		options.success = successHandler;
-	}
 	if (errorHandler !== undefined) {
 		options.error = errorHandler;
 	}
@@ -86,8 +85,24 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 			host: server.host,
 			apiUrl: apiUrl
 		};
+		if (successHandler !== undefined) {
+			if (AJS.sonar.accessor.PARSE_JSON_RESPONSES) {
+				// For some reason jQuery cannot parse the results as JSON from the querySonar servlet. So create an extra
+				// callback that will format the response
+				options.success = function(data) {
+					successHandler(JSON.parse(data));
+				}
+			} else {
+				if (successHandler !== undefined) {
+					options.success = successHandler;
+				}
+			}
+		}
 	} else {
 		options.url = server.host + apiUrl;
+		if (successHandler !== undefined) {
+			options.success = successHandler;
+		}
 	}
 	return options;
 }

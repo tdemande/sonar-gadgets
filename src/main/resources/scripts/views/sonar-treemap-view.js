@@ -23,6 +23,33 @@ AJS.sonar.views.treemap.VIEW_NAME = "treemap";
 
 AJS.sonar.views.treemap.DEFAULT_TREEMAP_DIMENSIONS = {width: 300, height: 300};
 
+AJS.sonar.views.treemap.DEFAULT_COLOR_METRIC = "violations_density";
+
+AJS.sonar.views.treemap.DEFAULT_SIZE_METRIC = "ncloc";
+
+AJS.sonar.views.treemap.METRICS = AJS.sonar.views.treemap.DEFAULT_SIZE_METRIC + ',' + AJS.sonar.views.treemap.DEFAULT_COLOR_METRIC;
+
+
+/**
+ * Generate the Sonar Treemap view.
+ * Using this method, the treemap will have the dimensions of the &lt;body/&gt; for the width and height of the treemap.
+ * 
+ * @see AJS.sonar.views.treemap.generateViewDetailed
+ * 
+ * @param baseUrl the base url of the system displaying the view
+ * @param server the Sonar server object
+ * @param measureData the measure data of a project on Sonar
+ * @param metricsDetails the details of the coverage measures
+ * @return the jQuery wrapped view object
+ */
+AJS.sonar.views.treemap.generateView = function(baseUrl, server, measureData, metricsDetails) {
+	var bodyTag = AJS.$("body");
+	var dimensions = {width: (bodyTag.width() - 20), height: (bodyTag.width() - 20)};
+	return AJS.sonar.views.treemap.generateViewDetailed(baseUrl, server, measureData.key, metricsDetails,
+			AJS.sonar.views.treemap.DEFAULT_SIZE_METRIC, AJS.sonar.views.treemap.DEFAULT_COLOR_METRIC,
+			dimensions, null);
+}
+
 /**
  * Generate the Treemap view
  * 
@@ -36,7 +63,7 @@ AJS.sonar.views.treemap.DEFAULT_TREEMAP_DIMENSIONS = {width: 300, height: 300};
  * @param onChangeCallback function to be called when size or color metrics change
  * @return the treemap view
  */
-AJS.sonar.views.treemap.generateView = function(baseUrl, server, resourceKey, metricsDetails, sizeMetricKey, colorMetricKey, dimensions, onChangeCallback) {
+AJS.sonar.views.treemap.generateViewDetailed = function(baseUrl, server, resourceKey, metricsDetails, sizeMetricKey, colorMetricKey, dimensions, onChangeCallback) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var sizeMetric = AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, sizeMetricKey);

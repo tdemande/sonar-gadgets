@@ -51,6 +51,7 @@
 	<UserPref name="titleRequired" datatype="hidden" default_value="true" />
 	<Content type="html" view="profile,canvas,home">
 		<![CDATA[
+		#requireResource("${atlassian.plugin.key}:gadget-common")
 		#requireResource("${atlassian.plugin.key}:treemap-gadget-js")
         #includeResources()
 		<script type="text/javascript">
@@ -93,7 +94,7 @@
 							gadget.savePref("colorMetric", colorMetric.key);
 						};
 						gadget.getView().append(
-							AJS.sonar.views.treemap.generateView(gadget.getBaseUrl(), sonarServer, gadget.getPref("sonarProject"),
+							AJS.sonar.views.treemap.generateViewDetailed(gadget.getBaseUrl(), sonarServer, gadget.getPref("sonarProject"),
 																args.metricsDetails, gadget.getPref("sizeMetric"), gadget.getPref("colorMetric"),
 																dimensions, onChangeCallback)
 						);

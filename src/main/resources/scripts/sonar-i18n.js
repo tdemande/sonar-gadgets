@@ -35,7 +35,7 @@ AJS.sonar.text.getMsg = function(msgKey) {
 	if (AJS.sonar.text.getMsgCallBack != null) {
 		return AJS.sonar.text.getMsgCallBack(msgKey);
 	} else if (AJS.sonar.text.msgStore[msgKey] !== undefined && AJS.sonar.text.msgStore[msgKey] != null) {
-		return AJS.sonar.text.msgStore[msgKey].value;
+		return AJS.sonar.text.msgStore[msgKey];
 	}
 	return msgKey;
 }

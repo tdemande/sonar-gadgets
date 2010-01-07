@@ -105,7 +105,7 @@ var treemap = {
 		options.viewAreaCoeff = w*h/s;
 		options.view = treemap.emptyView.clone().css({'width':w,'height':h});
 		options.content = []; 
-    treemap.squarify(data,[],h,true,options);
+    	treemap.squarify(data,[],h,true,options);
 		options.view.treemapAppend(options.content);
 		$(options.target).empty().treemapAppend(options.view);
 	},
