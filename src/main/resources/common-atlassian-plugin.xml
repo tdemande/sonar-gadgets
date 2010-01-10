@@ -17,7 +17,7 @@
  ~ specific language governing permissions and limitations
  ~ under the License.
  -->
-<atlassian-plugin name="${pom.name}" key="${atlassian.plugin.key}" system="false" pluginsVersion="2">
+<atlassian-plugin name="${atlassian.plugin.name}" key="${atlassian.plugin.key}" system="false" pluginsVersion="2">
 
 	<!-- I 1 8 N   R E S O U R C E S -->
 	<resource type="i18n" name="i18n-sonar-gadgets" location="i18n.sonar-gadgets" />
