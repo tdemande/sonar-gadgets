@@ -42,6 +42,8 @@ import com.marvelution.sonar.rest.client.service.SonarServerAccessorException;
  */
 public class GadgetSonarServerAccessor extends DefaultSonarServerAccessor {
 
+	public static final String UNDEFINED = "undefined";
+
 	/**
 	 * Invoke the {@link SonarServer} and return the response
 	 * 
@@ -83,7 +85,9 @@ public class GadgetSonarServerAccessor extends DefaultSonarServerAccessor {
 		}
 		server.setHost(host);
 		if (StringUtils.isNotBlank(req.getParameter("username"))
-			&& StringUtils.isNotBlank(req.getParameter("password"))) {
+			&& !UNDEFINED.equalsIgnoreCase(req.getParameter("username"))
+			&& StringUtils.isNotBlank(req.getParameter("password"))
+			&& !UNDEFINED.equalsIgnoreCase(req.getParameter("password"))) {
 			server.setUsername(req.getParameter("username"));
 			server.setPassword(req.getParameter("password"));
 		}

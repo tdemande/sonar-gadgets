@@ -80,11 +80,13 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 	if (server.secured || AJS.sonar.accessor.FORCE_SERVLET_QUERY) {
 		options.url = server.baseUrl + '/plugins/servlet/sonar/querySonar';
 		options.data = {
-			username: server.username,
-			password: server.password,
 			host: server.host,
 			apiUrl: apiUrl
 		};
+		if (server.username !== undefined && server.password !== undefined) {
+			options.data.username = server.username;
+			options.data.password = server.password;
+		}
 		if (successHandler !== undefined) {
 			if (AJS.sonar.accessor.PARSE_JSON_RESPONSES) {
 				// For some reason jQuery cannot parse the results as JSON from the querySonar servlet. So create an extra

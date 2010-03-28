@@ -155,8 +155,8 @@ public class GadgetSonarServerAccessorTest {
 		accessor.invokeSonarServer(request, response);
 		verify(request, VerificationModeFactory.times(1)).getParameter("host");
 		verify(request, VerificationModeFactory.times(1)).getParameter("apiUrl");
-		verify(request, VerificationModeFactory.times(2)).getParameter("username");
-		verify(request, VerificationModeFactory.times(2)).getParameter("password");
+		verify(request, VerificationModeFactory.times(3)).getParameter("username");
+		verify(request, VerificationModeFactory.times(3)).getParameter("password");
 		verify(response, VerificationModeFactory.times(1)).setHeader("Pragma", "no-cache");
 		verify(response, VerificationModeFactory.times(1)).setHeader("Cache-Control", "no-cache");
 		verify(response, VerificationModeFactory.times(1)).setStatus(HttpServletResponse.SC_OK);
