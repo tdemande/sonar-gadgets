@@ -48,7 +48,7 @@
 	<scm>
 		<connection>scm:svn:http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</connection>
 		<developerConnection>scm:svn:http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</developerConnection>
-		<url>http://svn.marvelution.com/atlassian/sonar-gadgets/trunk</url>
+		<url>http://fisheye.marvelution.com/browse/public/atlassian/sonar-gadgets/trunk</url>
 	</scm>
 	<issueManagement>
 		<system>JIRA</system>
