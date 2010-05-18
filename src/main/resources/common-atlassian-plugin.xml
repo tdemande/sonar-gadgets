@@ -195,6 +195,9 @@
 		class="com.marvelution.gadgets.sonar.GadgetSonarServerAccessor" public="true">
 		<interface>com.marvelution.sonar.rest.client.service.SonarServerAccessor</interface>
 	</component>
+	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils"
+		class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils">
+	</component>
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />
