@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>com.marvelution</groupId>
 		<artifactId>marvelution</artifactId>
-		<version>5</version>
+		<version>7-SNAPSHOT</version>
 	</parent>
 	<groupId>com.marvelution.gadgets</groupId>
 	<artifactId>sonar-gadgets</artifactId>
@@ -172,8 +172,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>net.sf.alchim</groupId>
+				<groupId>net.alchim31.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<version>0.9</version>
 				<executions>
 					<execution>
 						<goals>
