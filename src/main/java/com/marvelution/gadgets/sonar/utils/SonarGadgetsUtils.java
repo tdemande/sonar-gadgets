@@ -39,9 +39,9 @@ import com.atlassian.sal.api.message.I18nResolver;
  */
 public class SonarGadgetsUtils {
 
-	private final I18nResolver i18nResolver;
-
 	private static final Pattern GADGET_ID_PATTERN = Pattern.compile("^sonar\\.gadget\\.([a-z]*)\\.title$");
+
+	private final I18nResolver i18nResolver;
 
 	/**
 	 * Constructor

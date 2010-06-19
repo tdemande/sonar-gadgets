@@ -69,6 +69,7 @@ public class I18nEntries {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
@@ -76,6 +77,7 @@ public class I18nEntries {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean equals(Object object) {
 		return EqualsBuilder.reflectionEquals(this, object);
 	}
@@ -83,6 +85,7 @@ public class I18nEntries {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, I18nEntries.TO_STRING_STYLE);
 	}
@@ -139,6 +142,7 @@ public class I18nEntries {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public int hashCode() {
 			return HashCodeBuilder.reflectionHashCode(this);
 		}
@@ -146,6 +150,7 @@ public class I18nEntries {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public boolean equals(Object object) {
 			return EqualsBuilder.reflectionEquals(this, object);
 		}
@@ -153,6 +158,7 @@ public class I18nEntries {
 		/**
 		 * {@inheritDoc}
 		 */
+		@Override
 		public String toString() {
 			return ToStringBuilder.reflectionToString(this, I18nEntries.TO_STRING_STYLE);
 		}

@@ -42,6 +42,9 @@ import com.marvelution.sonar.rest.client.service.SonarServerAccessorException;
  */
 public class GadgetSonarServerAccessor extends DefaultSonarServerAccessor {
 
+	/**
+	 * JavaScript UNDEFINED String value
+	 */
 	public static final String UNDEFINED = "undefined";
 
 	/**
