@@ -21,7 +21,7 @@ AJS.$.namespace("AJS.sonar.views.coverage");
 
 AJS.sonar.views.coverage.VIEW_NAME = "coverage";
 
-AJS.sonar.views.coverage.METRICS = 'coverage_line_hits_data,tests,test_execution_time,test_errors,skipped_tests,test_failures,test_success_density,coverage,line_coverage,branch_coverage';
+AJS.sonar.views.coverage.METRICS = 'coverage_line_hits_data,tests,test_execution_time,test_errors,skipped_tests,test_failures,test_success_density,coverage,line_coverage,branch_coverage,skipped_tests';
 
 /**
  * Generate the Sonar Coverage view
@@ -49,6 +49,9 @@ AJS.sonar.views.coverage.generateView = function(baseUrl, server, measureData, m
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.coverage.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "tests"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "tests"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.coverage.VIEW_NAME, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "skipped_tests"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "skipped_tests"), false).appendTo(leftView);
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.coverage.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "test_execution_time"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "test_execution_time"), false).appendTo(leftView);
