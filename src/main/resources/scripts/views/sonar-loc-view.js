@@ -21,7 +21,7 @@ AJS.$.namespace("AJS.sonar.views.loc");
 
 AJS.sonar.views.loc.VIEW_NAME = "loc";
 
-AJS.sonar.views.loc.METRICS = 'ncloc,lines,classes,packages,functions,accessors';
+AJS.sonar.views.loc.METRICS = 'ncloc,lines,classes,packages,functions,accessors,statements,files';
 
 /**
  * Generate the Sonar LOC view
@@ -43,6 +43,12 @@ AJS.sonar.views.loc.generateView = function(baseUrl, server, measureData, metric
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.loc.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "lines"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "lines"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.loc.VIEW_NAME, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "statements"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "statements"), false).appendTo(leftView);
+	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.loc.VIEW_NAME, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "files"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "files"), false).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.sonar.views.createColumn(false);
 	rightView.append(AJS.sonar.views.createHeader("sonar.views.loc.classes.header"));
