@@ -21,7 +21,7 @@ AJS.$.namespace("AJS.sonar.views.complexity");
 
 AJS.sonar.views.complexity.VIEW_NAME = "complexity";
 
-AJS.sonar.views.complexity.METRICS = 'function_complexity,class_complexity,complexity,statements,function_complexity_distribution,class_complexity_distribution';
+AJS.sonar.views.complexity.METRICS = 'function_complexity,class_complexity,complexity,statements,function_complexity_distribution,class_complexity_distribution,file_complexity';
 
 /**
  * Generate the Sonar Complexity view
@@ -43,6 +43,9 @@ AJS.sonar.views.complexity.generateView = function(baseUrl, server, measureData,
 	AJS.sonar.views.complexity.createComplexityRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "class_complexity"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "class_complexity"), false).appendTo(leftView);
+	AJS.sonar.views.complexity.createComplexityRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
+			AJS.sonar.utils.getMeasureFromResource(measureData, "file_complexity"),
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "file_complexity"), false).appendTo(leftView);
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.complexity.VIEW_NAME, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "complexity"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "complexity"), false).appendTo(leftView);
@@ -116,7 +119,6 @@ AJS.sonar.views.complexity.addComplexityChart = function(serverUrl, tabsContaine
  * @param view the name of the current view (e.g.: coverage, complexity, loc)
  * @param measure the measure data
  * @param metric the metric of the measure
- * @param isBig display the measure in big text (true) of small text (false)
  * @return the measure row element
  */
 AJS.sonar.views.complexity.createComplexityRow = function(serverUrl, view, resourceId, measure, metric) {
