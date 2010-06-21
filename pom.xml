@@ -32,6 +32,7 @@
 
 	<name>Sonar Gadgets</name>
 	<description>Sonar Gadgets for Atlassian products like Jira and Bamboo</description>
+	<url>http://docs.marvleution.com/display/MARVSONARGADGETS</url>
 	<inceptionYear>2009</inceptionYear>
 	<organization>
 		<name>Marvelution</name>
