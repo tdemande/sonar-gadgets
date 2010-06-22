@@ -46,6 +46,7 @@ public class I18nEntries {
 	 * Default Constructor
 	 */
 	public I18nEntries() {
+		// Default constructor used my the REST API
 	}
 
 	/**
@@ -108,6 +109,7 @@ public class I18nEntries {
 		 * Default Constructor
 		 */
 		public I18nEntry() {
+			// Default constructor used my the REST API
 		}
 
 		/**
