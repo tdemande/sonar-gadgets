@@ -70,8 +70,6 @@
 	
 	<properties>
 		<project.jdk.revision>1.5</project.jdk.revision>
-		<pmd.ruleset.location>http://svn.marvelution.com/resources/pmd/marvelution-atlassian-related-pmd-ruleset.xml</pmd.ruleset.location>
-		<checkstyle.config.location>http://svn.marvelution.com/resources/checkstyle/marvelution-atlassian-related-checkstyle-config.xml</checkstyle.config.location>
 	</properties>
 
 	<dependencies>
