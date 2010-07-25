@@ -89,8 +89,8 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 		}
 		if (successHandler !== undefined) {
 			if (AJS.sonar.accessor.PARSE_JSON_RESPONSES) {
-				// For some reason jQuery cannot parse the results as JSON from the querySonar servlet. So create an extra
-				// callback that will format the response
+				// For some reason jQuery cannot parse the results as JSON from the querySonar servlet.
+				// So create an extra callback that will format the response
 				options.success = function(data) {
 					successHandler(JSON.parse(data));
 				}
