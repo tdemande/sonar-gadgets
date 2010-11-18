@@ -69,7 +69,7 @@
 	</ciManagement>
 	
 	<properties>
-		<project.jdk.revision>1.5</project.jdk.revision>
+		<project.jdk.revision>1.6</project.jdk.revision>
 	</properties>
 
 	<dependencies>
