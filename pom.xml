@@ -32,7 +32,7 @@
 
 	<name>Sonar Gadgets</name>
 	<description>Sonar Gadgets for Atlassian products like Jira and Bamboo</description>
-	<url>http://apidocs.marvelution.com/${project.name}/${project.version}</url>
+	<url>http://apidocs.marvelution.com/${project.artifactId}/${project.version}</url>
 	<inceptionYear>2009</inceptionYear>
 	<organization>
 		<name>Marvelution</name>
@@ -70,13 +70,13 @@
 	<distributionManagement>
 		<site>
 			<id>marvelution.website</id>
-			<url>dav:http://repository.marvelution.com/content/sites/apidocs/${project.name}/${project.version}</url>
+			<url>dav:http://repository.marvelution.com/content/sites/apidocs/${project.artifactId}/${project.version}</url>
 		</site>
 	</distributionManagement>
 	
 	<properties>
 		<project.jdk.revision>1.6</project.jdk.revision>
-		<stagingSiteURL>dav:http://repository.marvelution.com/content/sites/apidocs-staging/${project.name}/${project.version}</stagingSiteURL>
+		<stagingSiteURL>dav:http://repository.marvelution.com/content/sites/apidocs-staging/${project.artifactId}/${project.version}</stagingSiteURL>
 	</properties>
 
 	<dependencies>
