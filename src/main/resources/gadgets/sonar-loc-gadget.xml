@@ -62,7 +62,7 @@
 						AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.loc.title__");
 						return  {
 							theme : AJS.gadget.sonar.config.getThemeConfig(gadgets),
-							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject", null)
+							fields: AJS.gadget.sonar.fields.generateServerAndProjectPickerFields(gadget, "sonarServer", "sonarProject")
 						};
 					},
 					args: []

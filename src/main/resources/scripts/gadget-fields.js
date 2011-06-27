@@ -67,45 +67,19 @@ AJS.gadget.sonar.fields.isConfigured = function() {
  * @return the complete array of configuration fields for the Gadget
  */
 AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, serverPrefField, projectPrefField, addAllProjectsOption) {
-	var gadgetId = AJS.sonar.utils.randomNumber();
 	return [{
+		id: "sonarServer",
 		userpref: serverPrefField,
 		label: gadget.getMsg("sonar.gadget.common.server.label"),
 		description: gadget.getMsg("sonar.gadget.common.server.description"),
-		id: "sonar_server_picker_" + gadgetId,
-		type: "callbackBuilder",
-		callback: function(parentDiv) {
-			var serverPref = AJS.$("<input/>").attr({
-				name: serverPrefField,
-				type: "text"
-			}).val(gadget.getPref(serverPrefField)).addClass("text");
-			serverPref.blur(function() {
-				var selectList = AJS.$("#sonar_project_picker_" + gadgetId + " select");
-				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, serverPref.val(), selectList, "", addAllProjectsOption);
-			});
-			parentDiv.append(serverPref).append(
-				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.server.description"))
-			);
-		}
+		type: "text",
+		value: gadget.getPref(serverPrefField)
 	}, {
+		id: "sonarProejct",
 		userpref: projectPrefField,
 		label: gadget.getMsg("sonar.gadget.common.project.label"),
 		description: gadget.getMsg("sonar.gadget.common.project.description"),
-		id: "sonar_project_picker_" + gadgetId,
-		type: "callbackBuilder",
-		callback: function(parentDiv) {
-			var projectList = AJS.$("<select/>").attr({
-				name: projectPrefField
-			}).addClass("select-one");
-			projectList.empty();
-			if (gadget.getPref(serverPrefField) === "") {
-				projectList.css("display", "none");
-			} else {
-				AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects(gadget, gadget.getPref(serverPrefField), projectList, gadget.getPref(projectPrefField), addAllProjectsOption);
-			}
-			parentDiv.append(AJS.gadget.sonar.fields.waitImage()).append(projectList).append(
-				AJS.$("<span/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.project.description"))
-			);
-		}
+		type: "text",
+		value: gadget.getPref(projectPrefField)
 	}, AJS.gadget.sonar.fields.isConfigured(), AJS.gadget.sonar.fields.titleRequired()];
 }
