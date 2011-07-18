@@ -68,25 +68,12 @@ AJS.sonar.views.violations.generateView = function(baseUrl, server, measureData,
 	AJS.sonar.views.createMeasureRow(server.host, AJS.sonar.views.VIOLATIONS_VIEW, measureData.id,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "violations_density"),
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations_density"), true).appendTo(leftView);
-	var efficiencyMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "efficiency");
-	var maintainabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "maintainability");
-	var portabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "portability");
-	var reliabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "reliability");
-	var usabilityMeasure = AJS.sonar.utils.getMeasureFromResource(measureData, "usability");
-	AJS.$("<a/>").attr({
-		href: server.host + "/drilldown/violations/" + measureData.id + "?filter=category",
-		target: "_parent"
-	}).append(AJS.$("<img/>").attr({
-		src: server.host + "/chart?ck=xradar&w=140&h=110&c=777777|F8A036&m=100&g=0.25&l=Eff.,Mai.,Por.,Rel.,Usa.&v=" + efficiencyMeasure.val + "," + maintainabilityMeasure.val + "," + portabilityMeasure.val + "," + reliabilityMeasure.val + "," + usabilityMeasure.val,
-		width: 140,
-		height: 110
-	})).appendTo(leftView);
-	leftView.appendTo(view);
-	var rightView = AJS.sonar.views.createColumn(false);
-	rightView.append(AJS.sonar.views.createHeader("sonar.views.violations"));
+	leftView.append(AJS.sonar.views.createHeader("sonar.views.violations"));
 	AJS.sonar.views.violations.createViolationMeasureRow(server.host, AJS.sonar.views.VIOLATIONS_VIEW, measureData.key,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
-			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations"), true).appendTo(rightView);
+			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations"), true).appendTo(leftView);
+	leftView.appendTo(view);
+	var rightView = AJS.sonar.views.createColumn(false);
 	AJS.sonar.views.violations.createViolationPriorityRow(server.host, measureData,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
 			AJS.sonar.views.violations.VIOLATIONS_PRIORITIES.blocker).appendTo(rightView);
