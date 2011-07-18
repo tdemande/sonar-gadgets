@@ -72,39 +72,18 @@ AJS.sonar.accessor.generateApiUrl = function(projectKey, metrics) {
 AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, errorHandler) {
 	var options = {
 		type: "GET",
-		dataTpe: AJS.sonar.accessor.JSON_FORMAT
+		dataTpe: AJS.sonar.accessor.JSON_FORMAT,
+		url: server.host + apiUrl
 	};
+	if (server.username !== undefined && server.password !== undefined) {
+		options.data.username = server.username;
+		options.data.password = server.password;
+	}
 	if (errorHandler !== undefined) {
 		options.error = errorHandler;
 	}
-	if (server.secured || AJS.sonar.accessor.FORCE_SERVLET_QUERY) {
-		options.url = server.baseUrl + '/plugins/servlet/sonar/querySonar';
-		options.data = {
-			host: server.host,
-			apiUrl: apiUrl
-		};
-		if (server.username !== undefined && server.password !== undefined) {
-			options.data.username = server.username;
-			options.data.password = server.password;
-		}
-		if (successHandler !== undefined) {
-			if (AJS.sonar.accessor.PARSE_JSON_RESPONSES) {
-				// For some reason jQuery cannot parse the results as JSON from the querySonar servlet.
-				// So create an extra callback that will format the response
-				options.success = function(data) {
-					successHandler(JSON.parse(data));
-				}
-			} else {
-				if (successHandler !== undefined) {
-					options.success = successHandler;
-				}
-			}
-		}
-	} else {
-		options.url = server.host + apiUrl;
-		if (successHandler !== undefined) {
-			options.success = successHandler;
-		}
+	if (successHandler !== undefined) {
+		options.success = successHandler;
 	}
 	return options;
 }

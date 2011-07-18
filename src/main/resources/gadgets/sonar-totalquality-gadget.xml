@@ -38,6 +38,7 @@
         <Require feature="views" />
         <Optional feature="atlassian.util" />
         <Require feature="oauthpopup"/>
+        <Optional feature="auth-refresh" />
 		#oauth
 		#supportedLocales("gadget.common,sonar.views,sonar.gadget,sonar.error")
 	</ModulePrefs>

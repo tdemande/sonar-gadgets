@@ -74,6 +74,7 @@ AJS.sonar.views.violations.generateView = function(baseUrl, server, measureData,
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "violations"), true).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.sonar.views.createColumn(false);
+	rightView.append(AJS.sonar.views.createHeader("sonar.views.violations"));
 	AJS.sonar.views.violations.createViolationPriorityRow(server.host, measureData,
 			AJS.sonar.utils.getMeasureFromResource(measureData, "violations"),
 			AJS.sonar.views.violations.VIOLATIONS_PRIORITIES.blocker).appendTo(rightView);

@@ -156,11 +156,6 @@
 		<description>Provides REST endpoints used to display Sonar gadget contents.</description>
 	</rest>
 
-	<!-- S E R V L E T S -->
-	<servlet name="Sonar Accessor Servlet" key="sonar-accessor-servlet" class="com.marvelution.gadgets.sonar.servlet.SonarAccessorServlet">
-		<url-pattern>/sonar/querySonar</url-pattern>
-	</servlet>
-
 	<!-- G A D G E T S -->
 	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml" />
 	<gadget key="sonar-complexity-gadget" name="Sonar Complexity" location="gadgets/sonar-complexity-gadget.xml" />
@@ -191,10 +186,6 @@
 	<resource type="download" name="sonar-technicaldept-thumb.png" location="images/gadgets/sonar-technicaldept-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
-	<component key="gadgetSonarServerAccessor" name="Gadget Sonar Server Accessor"
-		class="com.marvelution.gadgets.sonar.GadgetSonarServerAccessor" public="true">
-		<interface>com.marvelution.sonar.rest.client.service.SonarServerAccessor</interface>
-	</component>
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils"
 		class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils">
 	</component>

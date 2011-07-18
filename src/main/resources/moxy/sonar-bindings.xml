@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Licensed to Marvelution under one or more contributor license 
+ ~ agreements.  See the NOTICE file distributed with this work 
+ ~ for additional information regarding copyright ownership.
+ ~ Marvelution licenses this file to you under the Apache License,
+ ~ Version 2.0 (the "License"); you may not use this file except
+ ~ in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~  http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing,
+ ~ software distributed under the License is distributed on an
+ ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~ KIND, either express or implied. See the License for the
+ ~ specific language governing permissions and limitations
+ ~ under the License.
+ -->
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm">
+	<xml-schema namespace="http://sonar.codehuas.org/wsclient" element-form-default="QUALIFIED" />
+	<java-types>
+		<java-type name="Dependency" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Event" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Favourite" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Measure" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Metric" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Plugin" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Profile" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Property" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Resource" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Review" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Comment" xml-accessor-type="FIELD">
+			<xml-type />
+		</java-type>
+		<java-type name="Rule" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="RuleParam" xml-accessor-type="FIELD">
+			<xml-type />
+		</java-type>
+		<java-type name="Server" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Source" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="TimeMachine" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+		<java-type name="Violation" xml-accessor-type="FIELD">
+			<xml-root-element />
+			<xml-type />
+		</java-type>
+	</java-types>
+</xml-bindings>
