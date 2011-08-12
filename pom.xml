@@ -23,7 +23,7 @@
 	<parent>
 		<groupId>com.marvelution</groupId>
 		<artifactId>marvelution</artifactId>
-		<version>10</version>
+		<version>11-SNAPSHOT</version>
 	</parent>
 	<groupId>com.marvelution.gadgets</groupId>
 	<artifactId>sonar-gadgets</artifactId>
