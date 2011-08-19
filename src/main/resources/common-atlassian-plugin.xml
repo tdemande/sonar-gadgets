@@ -26,6 +26,9 @@
 
 	<!-- W E B   R E S O U R C E S -->
 	<web-resource key="jquery-plugins" name="Treemap plugin for jQuery">
+		<resource type="download" name="jquery-ui-1.8.16.autocomplete.min.js" location="scripts/jQuery/jquery-ui-1.8.16.autocomplete.min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 		<resource type="download" name="jquery.bgiframe-min.js" location="scripts/jQuery/jquery.bgiframe-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -91,6 +94,7 @@
 	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
 		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
 		<resource type="download" name="sonar-views-min.css" location="styles/sonar-views-min.css" />
+		<resource type="download" name="jquery-ui-1.8.16.autocomplete.css" location="styles/jquery-ui-1.8.16.autocomplete.css" />
 	</web-resource>
 	<web-resource key="gadget-common" name="Common Gadget Web Resources">
 		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
@@ -157,14 +161,30 @@
 	</rest>
 
 	<!-- G A D G E T S -->
-	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml" />
-	<gadget key="sonar-complexity-gadget" name="Sonar Complexity" location="gadgets/sonar-complexity-gadget.xml" />
-	<gadget key="sonar-coverage-gadget" name="Sonar Coverage" location="gadgets/sonar-coverage-gadget.xml" />
-	<gadget key="sonar-loc-gadget" name="Sonar Lines of Code" location="gadgets/sonar-loc-gadget.xml" />
-	<gadget key="sonar-treemap-gadget" name="Sonar Treemap" location="gadgets/sonar-treemap-gadget.xml" />
-	<gadget key="sonar-violations-gadget" name="Sonar Violations" location="gadgets/sonar-violations-gadget.xml" />
-	<gadget key="sonar-totalquality-gadget" name="Sonar Total Quality" location="gadgets/sonar-totalquality-gadget.xml" />
-	<gadget key="sonar-technicaldept-gadget" name="Sonar Techincal Dept" location="gadgets/sonar-technicaldept-gadget.xml" />
+	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml">
+		<description>Gadget to display the Comments and Duplication metrics of a resource on a Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-complexity-gadget" name="Sonar Complexity" location="gadgets/sonar-complexity-gadget.xml">
+		<description>Gadget to display the Complexity metrics together with the Classes and Methods complexity charts of a resource on Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-coverage-gadget" name="Sonar Coverage" location="gadgets/sonar-coverage-gadget.xml">
+		<description>Gadget to display the Code Coverage and Test metrics of a resource on a Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-loc-gadget" name="Sonar Lines of Code" location="gadgets/sonar-loc-gadget.xml">
+		<description>Gadget to display the Size metrics of a resource on a Sonar Server, like number of packages, classes, methods, etc.</description>
+	</gadget>
+	<gadget key="sonar-treemap-gadget" name="Sonar Treemap" location="gadgets/sonar-treemap-gadget.xml">
+		<description>Gadget to display the treemap (radiator view) of resources on a Sonar Server.</description>
+	</gadget>
+	<gadget key="sonar-violations-gadget" name="Sonar Violations" location="gadgets/sonar-violations-gadget.xml">
+		<description>Gadget to display the Rule Compliance and the Violations metrics of a resource on a Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-totalquality-gadget" name="Sonar Total Quality" location="gadgets/sonar-totalquality-gadget.xml">
+		<description>Gadget to display the Total Quality metrics and the Total Quality Chart of a resource on a Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-technicaldept-gadget" name="Sonar Techincal Dept" location="gadgets/sonar-technicaldept-gadget.xml">
+		<description>Gadget to display the Technical Dept metrics and a pie-chart with the dept distribution of a resource on a Sonar Server</description>
+	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -186,9 +206,7 @@
 	<resource type="download" name="sonar-technicaldept-thumb.png" location="images/gadgets/sonar-technicaldept-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
-	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils"
-		class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils">
-	</component>
+	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />

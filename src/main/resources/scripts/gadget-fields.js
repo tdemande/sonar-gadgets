@@ -63,10 +63,9 @@ AJS.gadget.sonar.fields.isConfigured = function() {
  * @param gadget the Gadget to generate the configuration fields for
  * @param serverPrefField the name of the server preference field
  * @param projectPrefField the name of the project preference field
- * @param addAllProjectsOption flag to add an option for all projects
  * @return the complete array of configuration fields for the Gadget
  */
-AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, serverPrefField, projectPrefField, addAllProjectsOption) {
+AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, serverPrefField, projectPrefField) {
 	return [{
 		id: "sonarServer",
 		userpref: serverPrefField,
@@ -75,11 +74,31 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 		type: "text",
 		value: gadget.getPref(serverPrefField)
 	}, {
-		id: "sonarProejct",
+		id: "sonarProject",
 		userpref: projectPrefField,
 		label: gadget.getMsg("sonar.gadget.common.project.label"),
 		description: gadget.getMsg("sonar.gadget.common.project.description"),
-		type: "text",
-		value: gadget.getPref(projectPrefField)
+		type: "callbackBuilder",
+		callback: function(parentDiv) {
+			var projectInput = AJS.$("<input/>").attr({
+				name: projectPrefField,
+				type: "text"
+			}).val(gadget.getPref(projectPrefField)).addClass("text");
+			projectInput.autocomplete({
+				minLength: 4,
+				source: []
+			});
+			parentDiv.append(projectInput).append(
+				AJS.$("<div/>").addClass("description").text(gadget.getMsg("sonar.gadget.common.project.description"))
+			);
+			if (gadget.getPref(serverPrefField) !== "") {
+				// The server url is already given, populate the auto complete
+				AJS.gadget.sonar.accessor.populateProjectAutocomplete(gadget, gadget.getPref(serverPrefField), projectInput);
+			}
+			// Register the focusout event of the server pref field
+			AJS.$("#sonarServer").focusout(function() {
+				AJS.gadget.sonar.accessor.populateProjectAutocomplete(gadget, this.value, projectInput);
+			});
+		}
 	}, AJS.gadget.sonar.fields.isConfigured(), AJS.gadget.sonar.fields.titleRequired()];
 }

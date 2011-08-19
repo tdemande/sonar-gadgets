@@ -21,7 +21,7 @@ AJS.$.namespace("AJS.sonar.views.violations");
 
 AJS.sonar.views.violations.VIEW_NAME = "violations";
 
-AJS.sonar.views.violations.METRICS = 'violations_density,efficiency,maintainability,portability,reliability,usability,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations';
+AJS.sonar.views.violations.METRICS = 'violations_density,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations';
 
 AJS.sonar.views.violations.VIOLATIONS_PRIORITIES = {
 	blocker: {

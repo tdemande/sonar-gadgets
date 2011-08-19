@@ -48,6 +48,8 @@ import com.marvelution.gadgets.sonar.rest.model.I18nEntries.I18nEntry;
  */
 public class I18nResourceTest {
 
+	public static final int HTTP_OK_STATUS = 200;
+
 	@Mock
 	private HttpHeaders headers;
 
@@ -78,7 +80,7 @@ public class I18nResourceTest {
 			Collections.singletonMap("sonar", "Sonar"));
 		when(headers.getAcceptableLanguages()).thenReturn(new ArrayList<Locale>());
 		final Response response = resource.generate(headers);
-		assertThat(response.getStatus(), is(200));
+		assertThat(response.getStatus(), is(HTTP_OK_STATUS));
 		assertThat(response.getEntity(), is(I18nEntries.class));
 		final I18nEntries entries = (I18nEntries) response.getEntity();
 		assertThat(entries.getEntries().isEmpty(), is(false));
@@ -100,7 +102,7 @@ public class I18nResourceTest {
 			Collections.singletonMap("sonar", "Sonar"));
 		when(headers.getAcceptableLanguages()).thenReturn(Collections.singletonList(new Locale("nl")));
 		final Response response = resource.generate(headers);
-		assertThat(response.getStatus(), is(200));
+		assertThat(response.getStatus(), is(HTTP_OK_STATUS));
 		assertThat(response.getEntity(), is(I18nEntries.class));
 		final I18nEntries entries = (I18nEntries) response.getEntity();
 		assertThat(entries.getEntries().isEmpty(), is(false));

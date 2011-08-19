@@ -20,49 +20,28 @@
 AJS.$.namespace("AJS.gadget.sonar.accessor");
 
 /**
- * Populate the project select element with projects from a Sonar server
+ * Populate the project auto complete options
  * 
  * @param gadget the Gadget
  * @param serverUrl the Sonar server url
- * @param projectSelector the Select element to add the projects to
- * @param addAllProjectsOption flag to add an option for all projects
- * @param selectedKey the selected Project Key
+ * @param projectInput the Project input field
  */
-AJS.gadget.sonar.accessor.populateProjectSelectorWithProjects = function(gadget, serverUrl, projectSelector, selectedKey, addAllProjectsOption) {
-	var waitImage = AJS.$("#waitingImage");
-	var error = AJS.$("<span/>").attr({id: 'error_msg'});
-	waitImage.parent().prepend(error);
-	projectSelector.empty();
-	projectSelector.css("display", "none");
-	waitImage.css("display", "block");
-	gadget.resize();
+AJS.gadget.sonar.accessor.populateProjectAutocomplete = function(gadget, serverUrl, projectInput) {
 	var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(AJS.sonar.accessor.parseSonarServer(gadget.getBaseUrl(), serverUrl),
 		AJS.sonar.accessor.generateServerResourceApiUrl(), function(data) {
-			if (addAllProjectsOption !== null && addAllProjectsOption.value !== undefined && addAllProjectsOption.label !== undefined) {
-				projectSelector.append(
-					AJS.$("<option/>").attr({
-						value: addAllProjectsOption.value,
-						selected: (selectedKey === addAllProjectsOption.value)
-					}).text(addAllProjectsOption.label)
-				);
-			}
+			// Get the current auto complete source
+			var source = projectInput.autocomplete("option", "source");
+			// Add the new keys
 			AJS.$(data).each(function() {
-				projectSelector.append(
-					AJS.$("<option/>").attr({
-						value: this.key,
-						selected: (selectedKey === this.key)
-					}).text(this.name)
-				);
+				source.push(this.key);
 			});
-			error.css("display", "none");
-			waitImage.css("display", "none");
-			projectSelector.css("display", "block");
-			gadget.resize();
-		}, function() {
-			waitImage.css("display", "none");
-			projectSelector.css("display", "none");
-			error.css("display", "block");
-			error.empty().append(AJS.format(gadget.getMsg("sonar.error.failed.to.connect"), serverUrl));
+			// Set the new auto complete source
+			projectInput.autocomplete("option", "source", source);
+			var position = projectInput.position();
+			AJS.$(".ui-autocomplete").css({
+				top: (position.top + projectInput.height() + 5) + "px",
+				left: position.left + "px"
+			});
 		}
 	);
 	AJS.$.ajax(ajaxOptions);
