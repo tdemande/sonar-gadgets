@@ -248,3 +248,15 @@ AJS.sonar.utils.mixColors = function(color, mask, opacity) {
 	newColor.b = Math.round((color.b * opacity) + (mask.b * (1 - opacity)));
 	return newColor;
 }
+
+/**
+ * Convert a ISO 8601 Date to a Date
+ * 
+ * @param isostr the ISO String to convert
+ * @return the new Date
+ */
+AJS.sonar.utils.dateFromISO8601 = function(isostr) {
+	var parts = isostr.match(/\d+/g);
+	var months = parts[1] - 1;
+	return new Date(parts[0], months, parts[2], parts[3], parts[4], parts[5]);
+}

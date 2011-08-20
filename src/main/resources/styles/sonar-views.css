@@ -209,3 +209,20 @@ div.barchart>div {
 	font-size: 105%;
 	font-weight: bold;
 }
+
+#eventsTable {
+	border: 0px;
+	width: 100%;
+}
+
+#eventsTable td {
+	padding: 7px;
+}
+
+.even-row {
+	background-color: #F4F4F4;
+}
+
+.odd-row {
+	background-color: #FFF;
+}

@@ -26,6 +26,20 @@ AJS.sonar.accessor.FORCE_SERVLET_QUERY = false;
 AJS.sonar.accessor.PARSE_JSON_RESPONSES = false;
 
 /**
+ * Generate the Events API url for a server
+ * 
+ * @param projectKey the projectKey to get the events for
+ * @return the generated Evetns API url
+ */
+AJS.sonar.accessor.generateServerEventApiUrl = function(projectKey, categories) {
+	var categoriesParam = "";
+	if (categories !== "") {
+		categoriesParam = "&categories=" + categories;
+	}
+	return "/api/events?format=" + AJS.sonar.accessor.JSON_FORMAT + "&resource=" + projectKey + categoriesParam;
+}
+
+/**
  * Generate the Resource API url for a server
  * 
  * @return the generated Resource API url

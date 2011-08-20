@@ -112,6 +112,9 @@
 		<resource type="download" name="gadget-sonar-accessor-min.js" location="scripts/gadget-sonar-accessor-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+		<resource type="download" name="date.js" location="scripts/date.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 	</web-resource>
 	<web-resource key="comments-gadget-js" name="Comments Gadget Web Resources">
 		<resource type="download" name="sonar-comments-view-min.js" location="scripts/views/sonar-comments-view-min.js">
@@ -154,6 +157,11 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="events-gadget-js" name="Events Gadget Web Resources">
+		<resource type="download" name="sonar-events-view-min.js" location="scripts/views/sonar-events-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
@@ -185,6 +193,9 @@
 	<gadget key="sonar-technicaldept-gadget" name="Sonar Techincal Dept" location="gadgets/sonar-technicaldept-gadget.xml">
 		<description>Gadget to display the Technical Dept metrics and a pie-chart with the dept distribution of a resource on a Sonar Server</description>
 	</gadget>
+	<gadget key="sonar-events-gadget" name="Sonar Events Dept" location="gadgets/sonar-events-gadget.xml">
+		<description>Gadget to display the events of a resource on a Sonar Server</description>
+	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -204,6 +215,8 @@
 	<resource type="download" name="sonar-totalquality-thumb.png" location="images/gadgets/sonar-totalquality-thumb.png"/>
 	<resource type="download" name="sonar-technicaldept-screenshot.png" location="images/gadgets/sonar-technicaldept-screenshot.png"/>
 	<resource type="download" name="sonar-technicaldept-thumb.png" location="images/gadgets/sonar-technicaldept-thumb.png"/>
+	<resource type="download" name="sonar-events-screenshot.png" location="images/gadgets/sonar-events-screenshot.png"/>
+	<resource type="download" name="sonar-events-thumb.png" location="images/gadgets/sonar-events-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />
