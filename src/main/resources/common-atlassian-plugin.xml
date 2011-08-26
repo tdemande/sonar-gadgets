@@ -25,7 +25,7 @@
 	<resource type="i18n" name="i18n-sonar-views" location="i18n.sonar-views" />
 
 	<!-- W E B   R E S O U R C E S -->
-	<web-resource key="jquery-plugins" name="Treemap plugin for jQuery">
+	<web-resource key="jquery-plugins" name="Plugin for jQuery">
 		<resource type="download" name="jquery-ui-1.8.16.autocomplete.min.js" location="scripts/jQuery/jquery-ui-1.8.16.autocomplete.min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
