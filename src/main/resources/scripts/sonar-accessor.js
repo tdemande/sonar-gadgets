@@ -40,6 +40,23 @@ AJS.sonar.accessor.generateServerEventApiUrl = function(projectKey, categories) 
 }
 
 /**
+ * Generate the Project API url for a server
+ * 
+ * @param projectKey the projectKey to get the project data for
+ * @return the generated Project API url
+ */
+AJS.sonar.accessor.generateServerProjectApiUrl = function(projectKey, subprojects, versions) {
+	var url = "/api/projects?format=" + AJS.sonar.accessor.JSON_FORMAT + "&key=" + prjectKey;
+	if (subprojects !== undefined && subprojects == true) {
+		url += "&subprojects=true";
+	}
+	if (versions !== undefined && versions == true) {
+		url += "&versions=true";
+	}
+	return url;
+}
+
+/**
  * Generate the Resource API url for a server
  * 
  * @return the generated Resource API url

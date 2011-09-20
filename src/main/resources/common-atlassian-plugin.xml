@@ -162,6 +162,11 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="timemachine-gadget-js" name="Time Machine Gadget Web Resources">
+		<resource type="download" name="sonar-timemachine-view-min.js" location="scripts/views/sonar-timemachine-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
@@ -196,6 +201,9 @@
 	<gadget key="sonar-events-gadget" name="Sonar Events Dept" location="gadgets/sonar-events-gadget.xml">
 		<description>Gadget to display the events of a resource on a Sonar Server</description>
 	</gadget>
+	<gadget key="sonar-timemachine-gadget" name="Sonar Time Machine" location="gadgets/sonar-timemachine-gadget.xml">
+		<description>Gadget to display the Time Machine Chart of a resource on a Sonar Server</description>
+	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -217,6 +225,8 @@
 	<resource type="download" name="sonar-technicaldept-thumb.png" location="images/gadgets/sonar-technicaldept-thumb.png"/>
 	<resource type="download" name="sonar-events-screenshot.png" location="images/gadgets/sonar-events-screenshot.png"/>
 	<resource type="download" name="sonar-events-thumb.png" location="images/gadgets/sonar-events-thumb.png"/>
+	<resource type="download" name="sonar-timemachine-screenshot.png" location="images/gadgets/sonar-timemachine-screenshot.png"/>
+	<resource type="download" name="sonar-timemachine-thumb.png" location="images/gadgets/sonar-timemachine-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />
