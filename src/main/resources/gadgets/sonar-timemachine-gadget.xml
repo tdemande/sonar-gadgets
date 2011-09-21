@@ -89,9 +89,15 @@
 						} else {
 							var measureData = args.measureData[0];
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, AJS.format("__MSG_sonar.gadget.timemachine.project.title__", measureData.nm));
-							gadget.getView().append(
-								AJS.sonar.views.timemachine.generateView(gadget, sonarServer, measureData, args.metricsDetails)
-							);
+							if (gadget.getViewMode().toUpperCase() === "CANVAS") {
+								gadget.getView().append(
+									AJS.sonar.views.timemachine.generateCanvasView(gadget, sonarServer, measureData, args.metricsDetails)
+								);
+							} else {
+								gadget.getView().append(
+									AJS.sonar.views.timemachine.generateView(gadget, sonarServer, measureData, args.metricsDetails)
+								);
+							}
 						}
 					},
 					args: [{

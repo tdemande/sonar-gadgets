@@ -44,6 +44,8 @@ img {
 .left-column p, .left-column h4,
 .right-column p, .right-column h4,
 .left-column-onethird p, .left-column-onethird h4,
+.left-column-twothird p, .left-column-twothird h4,
+.right-column-onethird p, .right-column-onethird h4,
 .right-column-twothird p, .right-column-twothird h4 {
 	margin: 0;
 	padding: 0;
@@ -66,6 +68,16 @@ img {
 
 .right-column-twothird {
 	width: 64%;
+	float: right;
+}
+
+.left-column-twothird {
+	width: 64%;
+	float: left;
+}
+
+.right-column-onethird {
+	width: 32%;
 	float: right;
 }
 
@@ -225,4 +237,23 @@ div.barchart>div {
 
 .odd-row {
 	background-color: #FFF;
+}
+
+.time-machine-metrics {
+	float: left;
+	margin: 0;
+	width: 20%;
+}
+
+.time-machine-metric-domain-header {
+	font-weight: bold;
+}
+
+.time-machine-metrics li label {
+	margin-left: 5px;
+}
+
+.time-machine-metrics li {
+	list-style-type: none;
+	padding: 0px 5px 0px 5px;
 }

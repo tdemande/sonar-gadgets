@@ -106,7 +106,7 @@ AJS.sonar.utils.isValidMeasure = function(measure) {
 AJS.sonar.utils.getColorMetrics = function(metrics) {
 	var colorMetrics = new Array();
 	for(var index in metrics) {
-		if (metrics[index].val_type === "LEVEL" || metrics[index].val_type === "PERCENT") {
+		if (metrics[index].val_type.toUpperCase() === "LEVEL" || metrics[index].val_type.toUpperCase() === "PERCENT") {
 			colorMetrics.push(metrics[index]);
 		}
 	}
@@ -125,9 +125,10 @@ AJS.sonar.utils.getColorMetrics = function(metrics) {
 AJS.sonar.utils.getSizeMetrics = function(metrics) {
 	var sizeMetrics = new Array();
 	for(var index in metrics) {
-		if ((metrics[index].val_type === "INT" || metrics[index].val_type === "FLOAT" || metrics[index].val_type === "MILLISEC")
-				&& metrics[index].val_type !== "PERCENT" && metrics[index].domain != undefined && metrics[index].domain != null
-				&& metrics[index].domain !== "") {
+		if ((metrics[index].val_type.toUpperCase() === "INT" || metrics[index].val_type.toUpperCase() === "FLOAT"
+				|| metrics[index].val_type.toUpperCase() === "MILLISEC")
+				&& metrics[index].val_type.toUpperCase() !== "PERCENT" && metrics[index].domain != undefined
+				&& metrics[index].domain != null && metrics[index].domain !== "") {
 			sizeMetrics.push(metrics[index]);
 		}
 	}
@@ -135,6 +136,25 @@ AJS.sonar.utils.getSizeMetrics = function(metrics) {
 		return (a.name>b.name) - (b.name>a.name);
 	});
 	return sizeMetrics;
+}
+
+/**
+ * Get all the Metrics used for the Time Machine
+ * 
+ * @param metrics Array of all the metrics available
+ * @return Array of all time machine metrics
+ */
+AJS.sonar.utils.getTimeMachineMetrics = function(metrics) {
+	var timeMachineMetrics = new Array();
+	for(var index in metrics) {
+		if ((metrics[index].val_type.toUpperCase() === "INT" || metrics[index].val_type.toUpperCase() === "FLOAT"
+				|| metrics[index].val_type.toUpperCase() === "PERCENT"
+				|| metrics[index].val_type.toUpperCase() === "MILLISEC"
+				|| metrics[index].val_type.toUpperCase() === "RATING")) {
+			timeMachineMetrics.push(metrics[index]);
+		}
+	}
+	return timeMachineMetrics;
 }
 
 /**
