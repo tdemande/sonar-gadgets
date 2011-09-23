@@ -177,6 +177,11 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="lcom4-gadget-js" name="LCOM4 Gadget Web Resources">
+		<resource type="download" name="sonar-lcom4-view-min.js" location="scripts/views/sonar-lcom4-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
@@ -217,8 +222,11 @@
 	<gadget key="sonar-taglist-gadget" name="Sonar Tag List" location="gadgets/sonar-taglist-gadget.xml">
 		<description>Gadget to display the Tag metrics of a resoruce on a Sonar Server</description>
 	</gadget>
-	<gadget key="sonar-pti-gadget" name="Sonar Packe Tangle Index" location="gadgets/sonar-pti-gadget.xml">
+	<gadget key="sonar-pti-gadget" name="Sonar Package Tangle Index" location="gadgets/sonar-pti-gadget.xml">
 		<description>Gadget to display the Package Tangle Index metrics of a resoruce on a Sonar Server</description>
+	</gadget>
+	<gadget key="sonar-lcom4-gadget" name="Sonar LCOM4" location="gadgets/sonar-lcom4-gadget.xml">
+		<description>Gadget to display the LCOM4 metrics of a resoruce on a Sonar Server</description>
 	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
@@ -247,6 +255,8 @@
 	<resource type="download" name="sonar-taglist-thumb.png" location="images/gadgets/sonar-taglist-thumb.png"/>
 	<resource type="download" name="sonar-pti-screenshot.png" location="images/gadgets/sonar-pti-screenshot.png"/>
 	<resource type="download" name="sonar-pti-thumb.png" location="images/gadgets/sonar-pti-thumb.png"/>
+	<resource type="download" name="sonar-lcom4-screenshot.png" location="images/gadgets/sonar-lcom4-screenshot.png"/>
+	<resource type="download" name="sonar-lcom4-thumb.png" location="images/gadgets/sonar-lcom4-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />

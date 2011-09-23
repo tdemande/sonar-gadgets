@@ -26,7 +26,8 @@ AJS.sonar.views.ALTERNATE_METRIC_LINK_PARAMS = {
 		public_undocumented_api: "highlight=public_undocumented_api&amp;metric=public_undocumented_api",
 		commented_out_code_lines: "highlight=commented_out_code_lines&amp;metric=commented_out_code_lines",
 		duplicated_lines_density: "highlight=duplicated_lines_density&amp;metric=duplicated_lines",
-		violations_density: "highlight=weighted_violations&amp;metric=weighted_violations"
+		violations_density: "highlight=weighted_violations&amp;metric=weighted_violations",
+		suspect_lcom4_density: "metric=lcom4"
 };
 
 /**
