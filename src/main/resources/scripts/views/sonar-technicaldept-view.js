@@ -49,36 +49,10 @@ AJS.sonar.views.technicaldept.generateView = function(baseUrl, server, measureDa
 			AJS.sonar.utils.getMetricFromMetricsArray(metricsDetails, "technical_debt_days"), false).appendTo(leftView);
 	leftView.appendTo(view);
 	var rightView = AJS.sonar.views.createColumn(false);
-	AJS.sonar.views.technicaldept.createTechnicaldeptChart(server.host, 
+	AJS.sonar.views.createMetricChart(server.host, 
 			AJS.sonar.utils.getMeasureFromResource(measureData, "technical_debt_repart")
 	).appendTo(rightView);
 	rightView.appendTo(view);
 	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
-}
-
-/**
- * Create the Technical Dept chart from the technical_dept_repart measure
- * 
- * @param serverUrl the base url of the Sonar server
- * @param measure the technical_dept_repart measure
- * @return the Technical Dept chart image
- */
-AJS.sonar.views.technicaldept.createTechnicaldeptChart = function(serverUrl, measure) {
-	var keys = "";
-	var values = "";
-	AJS.$(measure.data.split(";")).each(function(index, item) {
-		if (keys.length > 0) {
-			keys += '|';
-			values += ',';
-		}
-		var metric = item.split("=");
-		keys += metric[0];
-		values += metric[1];
-	});
-	return AJS.$("<img/>").attr({
-		width: 248,
-		height: 65,
-		src: serverUrl + "/gchart?chs=248x65&chd=t:" + values + "&cht=p&chl=" + keys
-	});
 }

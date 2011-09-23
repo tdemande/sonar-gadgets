@@ -167,6 +167,11 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="taglist-gadget-js" name="Tag List Gadget Web Resources">
+		<resource type="download" name="sonar-taglist-view-min.js" location="scripts/views/sonar-taglist-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
@@ -204,6 +209,9 @@
 	<gadget key="sonar-timemachine-gadget" name="Sonar Time Machine" location="gadgets/sonar-timemachine-gadget.xml">
 		<description>Gadget to display the Time Machine Chart of a resource on a Sonar Server</description>
 	</gadget>
+	<gadget key="sonar-taglist-gadget" name="Sonar Tag List" location="gadgets/sonar-taglist-gadget.xml">
+		<description>Gadget to display the Tag metrics of a resoruce on a Sonar Server</description>
+	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -227,6 +235,8 @@
 	<resource type="download" name="sonar-events-thumb.png" location="images/gadgets/sonar-events-thumb.png"/>
 	<resource type="download" name="sonar-timemachine-screenshot.png" location="images/gadgets/sonar-timemachine-screenshot.png"/>
 	<resource type="download" name="sonar-timemachine-thumb.png" location="images/gadgets/sonar-timemachine-thumb.png"/>
+	<resource type="download" name="sonar-taglist-screenshot.png" location="images/gadgets/sonar-taglist-screenshot.png"/>
+	<resource type="download" name="sonar-taglist-thumb.png" location="images/gadgets/sonar-taglist-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />

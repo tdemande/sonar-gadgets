@@ -116,3 +116,29 @@ AJS.sonar.views.addViewFooter = function(viewContainer, serverUrl) {
 	}).text(serverUrl).appendTo(footer);
 	viewContainer.append(footer);
 }
+
+/**
+ * Create a PIE Chart from the measure given
+ * 
+ * @param serverUrl the base url of the Sonar server
+ * @param measure the measure
+ * @return the pie chart image
+ */
+AJS.sonar.views.createMetricChart = function(serverUrl, measure) {
+	var keys = "";
+	var values = "";
+	AJS.$(measure.data.split(";")).each(function(index, item) {
+		if (keys.length > 0) {
+			keys += '|';
+			values += ',';
+		}
+		var metric = item.split("=");
+		keys += metric[0];
+		values += metric[1];
+	});
+	return AJS.$("<img/>").attr({
+		width: 248,
+		height: 65,
+		src: serverUrl + "/gchart?chs=248x65&chd=t:" + values + "&cht=p&chl=" + keys
+	});
+}
