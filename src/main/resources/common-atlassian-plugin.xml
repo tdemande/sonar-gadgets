@@ -29,6 +29,7 @@
 		<resource type="download" name="jquery-ui-1.8.16.autocomplete.min.js" location="scripts/jQuery/jquery-ui-1.8.16.autocomplete.min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+		<resource type="download" name="jquery-ui-1.8.16.autocomplete.css" location="styles/jquery-ui-1.8.16.autocomplete.css" />
 		<resource type="download" name="jquery.bgiframe-min.js" location="scripts/jQuery/jquery.bgiframe-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
@@ -43,6 +44,10 @@
 		<resource type="download" name="treemap-min.js" location="scripts/jQuery/treemap-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+	</web-resource>
+	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
+		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
+		<resource type="download" name="sonar-views-min.css" location="styles/sonar-views-min.css" />
 	</web-resource>
 	<web-resource key="sonar-common-js" name="Common Sonar Web Resources">
 		<dependency>${atlassian.plugin.key}:jquery-plugins</dependency>
@@ -65,36 +70,19 @@
 	<web-resource key="sonar-all-js" name="All Sonar Web Resources">
 		<dependency>${atlassian.plugin.key}:sonar-common-js</dependency>
 		<dependency>${atlassian.plugin.key}:sonar-css</dependency>
-		<resource type="download" name="sonar-comments-view-min.js" location="scripts/views/sonar-comments-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-complexity-view-min.js" location="scripts/views/sonar-complexity-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-coverage-view-min.js" location="scripts/views/sonar-coverage-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-loc-view-min.js" location="scripts/views/sonar-loc-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<dependency>${atlassian.plugin.key}:jquery-treemap</dependency>
-		<resource type="download" name="sonar-treemap-view-min.js" location="scripts/views/sonar-treemap-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-violations-view-min.js" location="scripts/views/sonar-violations-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-totalquality-view-min.js" location="scripts/views/sonar-totalquality-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="sonar-technicaldept-view-min.js" location="scripts/views/sonar-technicaldept-view-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-	</web-resource>
-	<web-resource key="sonar-css" name="CSS Sonar Web Resources">
-		<resource type="download" name="sonar-common-min.css" location="styles/sonar-common-min.css" />
-		<resource type="download" name="sonar-views-min.css" location="styles/sonar-views-min.css" />
-		<resource type="download" name="jquery-ui-1.8.16.autocomplete.css" location="styles/jquery-ui-1.8.16.autocomplete.css" />
+		<dependency>${atlassian.plugin.key}:comments-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:complexity-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:coverage-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:loc-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:treemap-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:violations-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:totalquality-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:technicaldept-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:events-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:timemachine-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:taglist-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:pti-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:lcom4-gadget-js</dependency>
 	</web-resource>
 	<web-resource key="gadget-common" name="Common Gadget Web Resources">
 		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
@@ -107,9 +95,6 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 		<resource type="download" name="gadget-fields-min.js" location="scripts/gadget-fields-min.js">
-			<property key="content-type" value="text/javascript"/>
-		</resource>
-		<resource type="download" name="gadget-sonar-accessor-min.js" location="scripts/gadget-sonar-accessor-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 		<resource type="download" name="date.js" location="scripts/date.js">
@@ -188,6 +173,10 @@
 		<description>Provides REST endpoints used to display Sonar gadget contents.</description>
 	</rest>
 
+	<servlet name="Sonar Make Request Servlet" key="sonar-make-request-servlet" class="com.marvelution.gadgets.sonar.servlet.SonarMakeRequestServlet">
+		<url-pattern>/sonar/makeRequest</url-pattern>
+	</servlet>
+
 	<!-- G A D G E T S -->
 	<gadget key="sonar-comments-gadget" name="Sonar Comments" location="gadgets/sonar-comments-gadget.xml">
 		<description>Gadget to display the Comments and Duplication metrics of a resource on a Sonar Server</description>
@@ -260,6 +249,9 @@
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />
+	<component key="moxyContextResolver" name="MOXy Context Resolver" class="com.marvelution.gadgets.sonar.rest.providers.MOXyContextResolver">
+		<interface>javax.ws.rs.ext.ContextResolver</interface>
+	</component>
 
 	<!-- I M P O R T E D   C O M P O N E N T S -->
 	<component-import key="i18nResolver" interface="com.atlassian.sal.api.message.I18nResolver" />

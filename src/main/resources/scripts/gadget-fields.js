@@ -93,11 +93,11 @@ AJS.gadget.sonar.fields.generateServerAndProjectPickerFields = function(gadget, 
 			);
 			if (gadget.getPref(serverPrefField) !== "") {
 				// The server url is already given, populate the auto complete
-				AJS.gadget.sonar.accessor.populateProjectAutocomplete(gadget, gadget.getPref(serverPrefField), projectInput);
+				AJS.sonar.accessor.populateProjectAutocomplete(gadget.getBaseUrl(), gadget.getPref(serverPrefField), projectInput);
 			}
 			// Register the focusout event of the server pref field
 			AJS.$("#sonarServer").focusout(function() {
-				AJS.gadget.sonar.accessor.populateProjectAutocomplete(gadget, this.value, projectInput);
+				AJS.sonar.accessor.populateProjectAutocomplete(gadget.getBaseUrl(), this.value, projectInput);
 			});
 		}
 	}, AJS.gadget.sonar.fields.isConfigured(), AJS.gadget.sonar.fields.titleRequired()];

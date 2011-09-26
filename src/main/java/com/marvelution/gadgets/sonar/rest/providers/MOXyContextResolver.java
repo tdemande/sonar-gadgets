@@ -24,11 +24,14 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.apache.log4j.Logger;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.sonar.wsclient.services.Model;
 
@@ -41,14 +44,19 @@ import com.marvelution.gadgets.sonar.rest.exceptions.MOXyContextResolverExceptio
  * @author <a href="mailto:markrekveld@marvelution.com">Mark Rekveld</a>
  */
 @Provider
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 public class MOXyContextResolver implements ContextResolver<JAXBContext> {
+
+	private final Logger logger = Logger.getLogger(MOXyContextResolver.class);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public JAXBContext getContext(Class<?> type) {
+		logger.debug("Request came in for class " + type.getName());
 		if (Model.class.isInstance(type)) {
+			logger.debug(type.getName() + " is a Sonar Domain class, initiate the MOXy JAXBContext");
 			InputStream binding = MOXyContextResolver.class.getClassLoader().getResourceAsStream("moxy/sonar-bindings.xml");
 			Map<String, Object> properties = new HashMap<String, Object>(1);
 			properties.put(JAXBContextFactory.ECLIPSELINK_OXM_XML_KEY, binding);

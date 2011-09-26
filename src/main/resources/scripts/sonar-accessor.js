@@ -23,8 +23,6 @@ AJS.sonar.accessor.JSON_FORMAT = "json";
 
 AJS.sonar.accessor.FORCE_SERVLET_QUERY = false;
 
-AJS.sonar.accessor.PARSE_JSON_RESPONSES = false;
-
 /**
  * Generate the Events API url for a server
  * 
@@ -103,12 +101,18 @@ AJS.sonar.accessor.generateApiUrl = function(projectKey, metrics) {
 AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, errorHandler) {
 	var options = {
 		type: "GET",
-		dataTpe: AJS.sonar.accessor.JSON_FORMAT,
-		url: server.host + apiUrl
+		dataType: AJS.sonar.accessor.JSON_FORMAT
 	};
-	if (server.username !== undefined && server.password !== undefined) {
-		options.data.username = server.username;
-		options.data.password = server.password;
+	if (server.secured || AJS.sonar.accessor.FORCE_SERVLET_QUERY) {
+		// The makeRequest servlet of Atlassian doesn't handle the authenticate correctly for Sonar instances
+		// So redirect the call to the Sonar Make Request servlet that does it
+		options.url = server.baseUrl + "/plugins/servlet/sonar/makeRequest";
+		options.data = {
+			url: server.host + apiUrl,
+			type: "json"
+		};
+	} else {
+		options.url = server.host + apiUrl;
 	}
 	if (errorHandler !== undefined) {
 		options.error = errorHandler;
@@ -131,9 +135,7 @@ AJS.sonar.accessor.parseSonarServer = function(baseUrl, serverString) {
 	if (matches !== null) {
 		return {
 			baseUrl: baseUrl,
-			username: matches[2],
-			password: matches[3],
-			host: matches[1] + "://" + matches[4],
+			host: serverString,
 			secured: true
 		};
 	} else {
@@ -142,5 +144,35 @@ AJS.sonar.accessor.parseSonarServer = function(baseUrl, serverString) {
 			host: serverString,
 			secured: false
 		};
+	}
+}
+
+/**
+ * Populate the project auto complete options
+ * 
+ * @param baseUrl the Atlassian server base URL
+ * @param serverUrl the Sonar server url
+ * @param projectInput the Project input field
+ */
+AJS.sonar.accessor.populateProjectAutocomplete = function(baseUrl, serverUrl, projectInput) {
+	if (serverUrl !== undefined && serverUrl !== "") {
+		var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(AJS.sonar.accessor.parseSonarServer(baseUrl, serverUrl),
+			AJS.sonar.accessor.generateServerResourceApiUrl(), function(data) {
+				var source = new Array();
+				// Add the new keys
+				AJS.$(data).each(function() {
+					source.push(this.key);
+				});
+				// Set the new auto complete source
+				projectInput.autocomplete("option", "source", source);
+				// Use offset instead of position to get the absolute position and not the relative one
+				var position = projectInput.offset();
+				AJS.$(".ui-autocomplete").css({
+					top: (position.top + projectInput.height() + 5) + "px",
+					left: position.left + "px"
+				});
+			}
+		);
+		AJS.$.ajax(ajaxOptions);
 	}
 }
