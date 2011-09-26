@@ -80,9 +80,9 @@
 						if (!args.measureData[0]) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.events.title__");
 							gadget.getView().append(
-								AJS.sonar.utils.generateErrorMessageBox([
+								AJS.sonar.utils.generateErrorMessageBox(
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
-								])
+								)
 							);
 						} else {
 							var measureData = args.measureData[0];

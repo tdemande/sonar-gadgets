@@ -23,6 +23,8 @@ AJS.sonar.accessor.JSON_FORMAT = "json";
 
 AJS.sonar.accessor.FORCE_SERVLET_QUERY = false;
 
+AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR = ".gadget";
+
 /**
  * Generate the Events API url for a server
  * 
@@ -114,8 +116,25 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 	} else {
 		options.url = server.host + apiUrl;
 	}
-	if (errorHandler !== undefined) {
-		options.error = errorHandler;
+	// We need a global error handler in case of whitelist access denied errors
+	options.error = function(data, textStatus, xhr) {
+		if (console !== undefined && console.log !== undefined) {
+			console.log(data.text);
+		}
+		if (errorHandler !== undefined) {
+			// Execute the custom error handler
+			errorHandler();
+		} else if (AJS.$(AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR).length > 0) {
+			// Add the error to the error list
+			var errorHash = AJS.$.md5(data.text);
+			if (AJS.$("#err_" + errorHash).length === 0) {
+				AJS.sonar.utils.generateErrorMessageBox(data.text).attr("id", "err_" + errorHash)
+					.appendTo(AJS.$(AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR));
+			}
+		} else {
+			// default, just alert the user
+			alert(data.text);
+		}
 	}
 	if (successHandler !== undefined) {
 		options.success = successHandler;

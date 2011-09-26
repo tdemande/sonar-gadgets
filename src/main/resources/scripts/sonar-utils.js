@@ -207,16 +207,12 @@ AJS.sonar.utils.getPercentage = function(number, totalNumber) {
 /**
  * Generate the Error messages box
  * 
- * @param errors the array of i18n error keys
+ * @param error the error
  * @return the error messages div
  */
-AJS.sonar.utils.generateErrorMessageBox = function(errors) {
-	var errorDiv = AJS.$("<div/>").addClass("empty-results");
-	var errorList = AJS.$("<ul/>").addClass("styleless-list");
-	AJS.$.each(errors, function (i, error) {
-		errorList.append(AJS.$("<li/>").text(error));
-	});
-	errorList.appendTo(errorDiv);
+AJS.sonar.utils.generateErrorMessageBox = function(error) {
+	var errorDiv = AJS.$("<div/>").addClass("empty-results").addClass("aui-message").addClass("error");
+	errorDiv.append(AJS.$("<span/>").addClass("aui-icon").addClass("icon-error")).append(error);
 	return errorDiv;
 }
 

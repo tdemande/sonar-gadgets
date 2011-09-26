@@ -17,6 +17,7 @@
  * under the License.
 */
 
+/** Common Styles **/
 a {
 	color: #000;
 }
@@ -104,6 +105,7 @@ img {
 	padding: 0 3px;
 }
 
+/** Violations Styles **/
 .violation-row {
 	clear: both;
 	width: 250px;
@@ -140,6 +142,7 @@ div.barchart>div {
 	height: .9em;
 }
 
+/** Comon Tabs styles **/
 #tabs {
 	
 }
@@ -167,6 +170,7 @@ div.barchart>div {
 	height: 150px;
 }
 
+/** Treemap styles **/
 .treemap-header {
 	font-size: 90%;
 }
@@ -222,6 +226,7 @@ div.barchart>div {
 	font-weight: bold;
 }
 
+/** Events styles **/
 #eventsTable {
 	border: 0px;
 	width: 100%;
@@ -239,6 +244,7 @@ div.barchart>div {
 	background-color: #FFF;
 }
 
+/** Time Machine styles **/
 .time-machine-metrics {
 	float: left;
 	margin: 0;
@@ -256,4 +262,26 @@ div.barchart>div {
 .time-machine-metrics li {
 	list-style-type: none;
 	padding: 0px 5px 0px 5px;
+}
+
+/** Quality Index styles **/
+table.qidata {}
+
+table.qidata td {
+	padding: 0 5px 0 0;
+}
+
+.qidata-bg-row {
+	display: block;
+	height: 0.9em;
+	border: 0;
+	float: left;
+	margin: 3px 5px;
+	padding: 0;
+	background-color: #00DF00;
+}
+
+.qidata-row {
+	height: 0.9em;
+	background-color: #DF0000;
 }

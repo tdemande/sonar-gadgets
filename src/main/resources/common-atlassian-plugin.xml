@@ -39,6 +39,9 @@
 		<resource type="download" name="jquery.tooltip-min.js" location="scripts/jQuery/jquery.tooltip-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
+		<resource type="download" name="jquery.md5-min.js" location="scripts/jQuery/jquery.md5-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
 	</web-resource>
 	<web-resource key="jquery-treemap" name="Treemap plugin for jQuery">
 		<resource type="download" name="treemap-min.js" location="scripts/jQuery/treemap-min.js">
@@ -83,6 +86,7 @@
 		<dependency>${atlassian.plugin.key}:taglist-gadget-js</dependency>
 		<dependency>${atlassian.plugin.key}:pti-gadget-js</dependency>
 		<dependency>${atlassian.plugin.key}:lcom4-gadget-js</dependency>
+		<dependency>${atlassian.plugin.key}:qi-gadget-js</dependency>
 	</web-resource>
 	<web-resource key="gadget-common" name="Common Gadget Web Resources">
 		<dependency>${atlassian.plugin.key}:publisher-specific</dependency>
@@ -167,12 +171,18 @@
 			<property key="content-type" value="text/javascript"/>
 		</resource>
 	</web-resource>
+	<web-resource key="qi-gadget-js" name="Quality Index Gadget Web Resources">
+		<resource type="download" name="sonar-qi-view-min.js" location="scripts/views/sonar-qi-view-min.js">
+			<property key="content-type" value="text/javascript"/>
+		</resource>
+	</web-resource>
 
 	<!-- R E S T   R E S O U R C E S -->
 	<rest key="${atlassian.plugin.key}.resource" path="/sonar" version="1.0">
 		<description>Provides REST endpoints used to display Sonar gadget contents.</description>
 	</rest>
 
+	<!-- S E R V L E T S -->
 	<servlet name="Sonar Make Request Servlet" key="sonar-make-request-servlet" class="com.marvelution.gadgets.sonar.servlet.SonarMakeRequestServlet">
 		<url-pattern>/sonar/makeRequest</url-pattern>
 	</servlet>
@@ -217,6 +227,9 @@
 	<gadget key="sonar-lcom4-gadget" name="Sonar LCOM4" location="gadgets/sonar-lcom4-gadget.xml">
 		<description>Gadget to display the LCOM4 metrics of a resoruce on a Sonar Server</description>
 	</gadget>
+	<gadget key="sonar-qi-gadget" name="Sonar Quality Index" location="gadgets/sonar-qi-gadget.xml">
+		<description>Gadget to display the Quality Index metrics of a resoruce on a Sonar Server</description>
+	</gadget>
 
 	<!-- I M A G E   R E S O U R C E S -->
 	<resource type="download" name="images/" location="images/" />
@@ -246,6 +259,8 @@
 	<resource type="download" name="sonar-pti-thumb.png" location="images/gadgets/sonar-pti-thumb.png"/>
 	<resource type="download" name="sonar-lcom4-screenshot.png" location="images/gadgets/sonar-lcom4-screenshot.png"/>
 	<resource type="download" name="sonar-lcom4-thumb.png" location="images/gadgets/sonar-lcom4-thumb.png"/>
+	<resource type="download" name="sonar-qi-screenshot.png" location="images/gadgets/sonar-qi-screenshot.png"/>
+	<resource type="download" name="sonar-qi-thumb.png" location="images/gadgets/sonar-qi-thumb.png"/>
 
 	<!-- C O M P O N E N T S -->
 	<component key="sonarGadgetsUtils" name="Sonar Gadgets Utils" class="com.marvelution.gadgets.sonar.utils.SonarGadgetsUtils" />

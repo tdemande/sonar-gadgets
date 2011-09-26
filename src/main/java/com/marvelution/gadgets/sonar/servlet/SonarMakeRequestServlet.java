@@ -90,9 +90,6 @@ public class SonarMakeRequestServlet extends HttpServlet {
 		} else {
 			hostUri.append(uri.getAuthority());
 		}
-		if (uri.getPort() > -1) {
-			hostUri.append(":").append(uri.getPort());
-		}
 		Host host = new Host(hostUri.toString());
 		if (uri.getAuthority().indexOf("@") > -1) {
 			String userInfo = uri.getAuthority().substring(0, uri.getAuthority().lastIndexOf("@"));

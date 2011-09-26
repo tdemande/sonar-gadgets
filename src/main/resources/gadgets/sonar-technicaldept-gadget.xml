@@ -80,16 +80,16 @@
 						if (!args.measureData[0]) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
 							gadget.getView().append(
-								AJS.sonar.utils.generateErrorMessageBox([
+								AJS.sonar.utils.generateErrorMessageBox(
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
-								])
+								)
 							);
 						} else if (AJS.sonar.utils.isValidMetric(AJS.sonar.utils.getMetricFromMetricsArray(args.metricsDetails, "technical_debt"))) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.technicaldept.title__");
 							gadget.getView().append(
-								AJS.sonar.utils.generateErrorMessageBox([
+								AJS.sonar.utils.generateErrorMessageBox(
 									AJS.format("__MSG_sonar.error.plugin.not.installed.on.server__", "__MSG_sonar.error.plugin.techincaldept__", sonarServer.host)
-								])
+								)
 							);
 						} else {
 							var measureData = args.measureData[0];
