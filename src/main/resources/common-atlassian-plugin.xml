@@ -29,7 +29,7 @@
 		<resource type="download" name="jquery-ui-1.8.16.autocomplete.min.js" location="scripts/jQuery/jquery-ui-1.8.16.autocomplete.min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
-		<resource type="download" name="jquery-ui-1.8.16.autocomplete.css" location="styles/jquery-ui-1.8.16.autocomplete.css" />
+		<resource type="download" name="jquery-ui-1.8.16.autocomplete.css" location="styles/jQuery/jquery-ui-1.8.16.autocomplete.css" />
 		<resource type="download" name="jquery.bgiframe-min.js" location="scripts/jQuery/jquery.bgiframe-min.js">
 			<property key="content-type" value="text/javascript"/>
 		</resource>
