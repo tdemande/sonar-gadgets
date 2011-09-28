@@ -175,6 +175,9 @@ AJS.sonar.accessor.parseSonarServer = function(baseUrl, serverString) {
  */
 AJS.sonar.accessor.populateProjectAutocomplete = function(baseUrl, serverUrl, projectInput) {
 	if (serverUrl !== undefined && serverUrl !== "") {
+		// For the auto complete we require the Sonar make request servlet, so force its use
+		var oldForceServlet = AJS.sonar.accessor.FORCE_SERVLET_QUERY;
+		AJS.sonar.accessor.FORCE_SERVLET_QUERY = true;
 		var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(AJS.sonar.accessor.parseSonarServer(baseUrl, serverUrl),
 			AJS.sonar.accessor.generateServerResourceApiUrl(), function(data) {
 				var source = new Array();
@@ -192,6 +195,7 @@ AJS.sonar.accessor.populateProjectAutocomplete = function(baseUrl, serverUrl, pr
 				});
 			}
 		);
+		AJS.sonar.accessor.FORCE_SERVLET_QUERY = oldForceServlet;
 		AJS.$.ajax(ajaxOptions);
 	}
 }
