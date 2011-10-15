@@ -84,7 +84,7 @@
 									AJS.format("__MSG_sonar.error.project.not.on.server__", gadget.getPref("sonarProject"), sonarServer.host)
 								)
 							);
-						} else if (AJS.sonar.utils.isValidMetric(AJS.sonar.utils.getMetricFromMetricsArray(args.metricsDetails, "isoqa_tq"))) {
+						} else if (AJS.sonar.utils.isValidMetric(AJS.sonar.utils.getMetricFromMetricsArray(args.metricsDetails, "total-quality"))) {
 							AJS.sonar.gadget.utils.setGadgetTitle(gadget, "__MSG_sonar.gadget.totalquality.title__");
 							gadget.getView().append(
 								AJS.sonar.utils.generateErrorMessageBox(

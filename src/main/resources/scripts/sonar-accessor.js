@@ -21,7 +21,7 @@ AJS.$.namespace("AJS.sonar.accessor");
 
 AJS.sonar.accessor.JSON_FORMAT = "json";
 
-AJS.sonar.accessor.FORCE_SERVLET_QUERY = false;
+AJS.sonar.accessor.FORCE_SERVLET_QUERY = true;
 
 AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR = ".gadget";
 
