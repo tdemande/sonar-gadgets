@@ -110,7 +110,7 @@ AJS.sonar.views.createMeasureRow = function(serverUrl, view, resourceId, measure
  * @param serverUrl the url of the Sonar server
  */
 AJS.sonar.views.addViewFooter = function(viewContainer, serverUrl) {
-	var footer = AJS.$("<div/>").addClass("sonar-footer").text(AJS.sonar.text.getMsg("sonar.views.connected.to"));
+	var footer = AJS.$("<div/>").addClass("sonar-footer").text(AJS.sonar.text.getMsg("sonar.views.connected.to") + " ");
 	AJS.$("<a/>").attr({
 		href: serverUrl,
 		target: "_parent"
