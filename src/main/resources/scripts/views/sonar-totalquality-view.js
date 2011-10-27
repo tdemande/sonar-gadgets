@@ -96,8 +96,8 @@ AJS.sonar.views.totalquality.generateTotalQualityChart = function(serverUrl, mea
 		values += metric.val;
 	});
 	return AJS.$("<img/>").attr({
-		width: 250,
-		height: 250,
+		width: 200,
+		height: 200,
 		src: serverUrl + '/chart?ck=xradar&w=200&h=200&c=777777|F8A036&m=100&g=0.25&l=' + keys + '&v=' + values
 	});
 }

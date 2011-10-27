@@ -110,7 +110,7 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 		// So redirect the call to the Sonar Make Request servlet that does it
 		options.url = server.baseUrl + "/plugins/servlet/sonar/makeRequest";
 		options.data = {
-			url: server.host + apiUrl,
+			url: server.queryHost + apiUrl,
 			type: "json"
 		};
 	} else {
@@ -154,13 +154,15 @@ AJS.sonar.accessor.parseSonarServer = function(baseUrl, serverString) {
 	if (matches !== null) {
 		return {
 			baseUrl: baseUrl,
-			host: serverString,
+            host: matches[1] + "://" + matches[4],
+			queryHost: serverString,
 			secured: true
 		};
 	} else {
 		return {
 			baseUrl: baseUrl,
 			host: serverString,
+			queryHost: serverString,
 			secured: false
 		};
 	}
