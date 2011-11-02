@@ -44,7 +44,7 @@ AJS.sonar.views.events.CATEGORIES = [{
  * @param metricsDetails the details of the coverage measures
  * @return the jQuery wrapped view object
  */
-AJS.sonar.views.events.generateView = function(baseUrl, server, projectKey, resizeMthod) {
+AJS.sonar.views.events.generateView = function(baseUrl, server, projectKey, resizeMethod) {
 	AJS.sonar.text.load(baseUrl);
 	var view = AJS.sonar.views.createViewContainer();
 	var header = AJS.$("<div/>").addClass("treemap-header");
@@ -54,12 +54,12 @@ AJS.sonar.views.events.generateView = function(baseUrl, server, projectKey, resi
 	var onChange = function() {
 		AJS.$("#treemap-loading").show();
 		var eventCategories =  AJS.$("#eventCategories").val();
-		AJS.sonar.views.events.populateEventsTable(server, AJS.$("#eventsTable"), projectKey, eventCategories, resizeMthod);
+		AJS.sonar.views.events.populateEventsTable(server, AJS.$("#eventsTable"), projectKey, eventCategories, resizeMethod);
 	};
 	AJS.$("<label/>").attr({"for" : "eventCategories"}).text(AJS.sonar.text.getMsg("sonar.views.events") + ": ").appendTo(header);
 	AJS.sonar.views.events.createSelectElement("eventCategories", "eventCategories", "", onChange).appendTo(header);
 	AJS.$("<img/>").attr({id: "treemap-loading", src: WAIT_IMAGE_SRC}).appendTo(header);
-	AJS.sonar.views.events.populateEventsTable(server, eventsTable, projectKey, "", resizeMthod);
+	AJS.sonar.views.events.populateEventsTable(server, eventsTable, projectKey, "", resizeMethod);
 	AJS.sonar.views.addViewFooter(view, server.host);
 	return view;
 }
@@ -71,9 +71,9 @@ AJS.sonar.views.events.generateView = function(baseUrl, server, projectKey, resi
  * @param eventsTable the jQuery wrapped events table html element
  * @param projectKey the project key to get the events from
  * @param categories the event categories to get
- * @param resizeMthod the method to call to resize the parent element holding the events table
+ * @param resizeMethod the method to call to resize the parent element holding the events table
  */
-AJS.sonar.views.events.populateEventsTable = function(server, eventsTable, projectKey, categories, resizeMthod) {
+AJS.sonar.views.events.populateEventsTable = function(server, eventsTable, projectKey, categories, resizeMethod) {
 	var url = AJS.sonar.accessor.generateServerEventApiUrl(projectKey, categories);
 	var ajaxOptions = AJS.sonar.accessor.getAjaxOptions(server, url, function(resourceData) {
 		eventsTable.empty();
@@ -96,7 +96,7 @@ AJS.sonar.views.events.populateEventsTable = function(server, eventsTable, proje
 			AJS.$("#eventsTable tr:odd").addClass("odd-row");
 			AJS.$("#eventsTable tr:even").addClass("even-row");
 			try {
-				resizeMthod();
+				resizeMethod();
 			} catch(x) {}
 		}
 		AJS.$("#treemap-loading").hide();
@@ -106,7 +106,7 @@ AJS.sonar.views.events.populateEventsTable = function(server, eventsTable, proje
 				AJS.sonar.text.getMsg("sonar.views.events.failed.to.get.data")
 			).appendTo(treemapContainer);
 			try {
-				resizeMthod();
+				resizeMethod();
 			} catch(x) {}
 		}
 	);

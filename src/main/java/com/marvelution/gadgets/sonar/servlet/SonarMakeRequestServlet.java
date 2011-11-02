@@ -33,6 +33,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.wsclient.Host;
 import org.sonar.wsclient.Sonar;
+import org.sonar.wsclient.connectors.ConnectionException;
 import org.sonar.wsclient.connectors.HttpClient4Connector;
 
 import com.marvelution.gadgets.sonar.servlet.query.QueryWrapper;
@@ -71,7 +72,11 @@ public class SonarMakeRequestServlet extends HttpServlet {
 				}
 				resp.getWriter().write(json);
 				resp.getWriter().flush();
+			} catch (ConnectionException e) {
+				throw new ServletException("Failed to execute query. Please verify the correctness of the query and "
+						+ "that the Sonar server is up.", e);
 			} catch (URISyntaxException e) {
+				throw new ServletException("Invalid query url specified", e);
 			}
 		}
 	}

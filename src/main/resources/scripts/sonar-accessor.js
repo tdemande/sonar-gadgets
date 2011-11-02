@@ -123,17 +123,28 @@ AJS.sonar.accessor.getAjaxOptions = function(server, apiUrl, successHandler, err
 		}
 		if (errorHandler !== undefined) {
 			// Execute the custom error handler
-			errorHandler();
+			errorHandler(data, textStatus, xhr);
 		} else if (AJS.$(AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR).length > 0) {
 			// Add the error to the error list
+			if (data.text === undefined) {
+				data.text = "An unknown error occured, please consult your administrator for assistance.";
+			}
 			var errorHash = AJS.$.md5(data.text);
 			if (AJS.$("#err_" + errorHash).length === 0) {
 				AJS.sonar.utils.generateErrorMessageBox(data.text).attr("id", "err_" + errorHash)
 					.appendTo(AJS.$(AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR));
 			}
-		} else {
+			if (AJS.sonar.accessor.ERROR_CONTAINER_SELECTOR === ".gadget") {
+				// If we are in a gadget that the view is all f*cked.
+				// So fix this by hiding the config and showing the view
+				AJS.$(".gadget .view").css("display", "block");
+				AJS.$("#config").css("display", "none");
+			}
+		} else if (data.text !== undefined) {
 			// default, just alert the user
 			alert(data.text);
+		} else {
+			alert("An unknown error occured, please consult your administrator for assistance.");
 		}
 	}
 	if (successHandler !== undefined) {
