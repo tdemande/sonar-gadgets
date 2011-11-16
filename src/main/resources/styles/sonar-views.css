@@ -161,6 +161,7 @@ div.barchart>div {
 
 #charts {
 	padding: 5px;
+	margin-top: 1px;
 	border: 1px solid #CCC;
 	background-color: #FFF;
 }
