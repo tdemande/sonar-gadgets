@@ -37,14 +37,13 @@ import org.sonar.wsclient.services.Model;
 
 import com.marvelution.gadgets.sonar.rest.exceptions.MOXyContextResolverException;
 
-
 /**
  * JAX-RS {@link Provider} to provide the {@link JAXBContext} for the Sonar WS Client domain classes.
  * 
  * @author <a href="mailto:markrekveld@marvelution.com">Mark Rekveld</a>
  */
 @Provider
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_XML, MediaType.TEXT_XML})
 public class MOXyContextResolver implements ContextResolver<JAXBContext> {
 
 	private final Logger logger = Logger.getLogger(MOXyContextResolver.class);

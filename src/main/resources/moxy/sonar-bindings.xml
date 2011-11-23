@@ -20,69 +20,69 @@
 <xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm">
 	<xml-schema namespace="http://sonar.codehuas.org/wsclient" element-form-default="QUALIFIED" />
 	<java-types>
-		<java-type name="Dependency" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Dependency" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Event" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Event" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Favourite" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Favourite" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Measure" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Measure" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Metric" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Metric" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Plugin" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Plugin" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Profile" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Profile" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Property" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Property" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Resource" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Resource" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Review" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Review" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Comment" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Comment" xml-accessor-type="FIELD">
 			<xml-type />
 		</java-type>
-		<java-type name="Rule" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Rule" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="RuleParam" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.RuleParam" xml-accessor-type="FIELD">
 			<xml-type />
 		</java-type>
-		<java-type name="Server" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Server" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Source" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Source" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="TimeMachine" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.TimeMachine" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
-		<java-type name="Violation" xml-accessor-type="FIELD">
+		<java-type name="org.sonar.wsclient.services.Violation" xml-accessor-type="FIELD">
 			<xml-root-element />
 			<xml-type />
 		</java-type>
